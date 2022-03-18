@@ -163,7 +163,8 @@ public class NMSObjectReflection {
 	/**
 	 * 
 	 * @param fieldName The field you want to get
-	 * @return Returns a {@link Field} object of the {@link #nmsObject}. To get the <i>value</i> of the field use {@link #getFieldFromNmsObject(String)}
+	 * @return Returns a {@link Field} object of the {@link #nmsObject}. To get the
+	 *         <i>value</i> of the field use {@link #getFieldFromNmsObject(String)}
 	 * @throws NoSuchFieldException This is thrown when the field doesn't exist
 	 */
 	public Field getField(String fieldName) throws NoSuchFieldException {
@@ -176,6 +177,15 @@ public class NMSObjectReflection {
 		}
 
 		return null;
+
+	}
+
+	/**
+	 * @return Returns the NMS object that is associated with this reflection
+	 */
+	public Object getNmsObject() {
+
+		return nmsObject;
 
 	}
 
