@@ -12,7 +12,7 @@ public class NMSObjectReflection {
 
 	protected Object nmsObject;
 
-	protected NMSObjectReflection(Object nmsObject) {
+	public NMSObjectReflection(Object nmsObject) {
 
 		this.nmsObject = nmsObject;
 
