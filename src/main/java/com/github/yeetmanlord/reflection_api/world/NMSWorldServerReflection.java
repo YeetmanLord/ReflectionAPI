@@ -23,6 +23,12 @@ public class NMSWorldServerReflection extends NMSObjectReflection {
 
 	}
 
+	public NMSWorldServerReflection(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
+
 	public Object getNmsWorldServer() {
 
 		return nmsObject;

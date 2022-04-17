@@ -3,16 +3,21 @@ package com.github.yeetmanlord.reflection_api.packets.player;
 import java.util.HashMap;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.mappings.Mappings;
+import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 import com.github.yeetmanlord.reflection_api.players.NMSPlayerReflection;
 
 public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
+
 	private static HashMap<Class<?>, Integer> specialClasses = new HashMap<>();
 	static {
-		if (ReflectionApi.version.equals("1.8")) {
-			specialClasses.put(ReflectionApi.getNMSClass("EnumPlayerInfoAction"), 0);
-		} else
-			specialClasses.put(ReflectionApi.getNMSInnerClass("EnumPlayerInfoAction", "PacketPlayOutPlayerInfo"), 0);
+		try {
+			specialClasses.put(Mappings.ENUM_PLAYER_ACTION_CLASS_MAPPING.getNMSClassMapping(), 0);
+		}
+		catch (MappingsException e) {
+			e.printStackTrace();
+		}
 		specialClasses.put(ReflectionApi.getNMSClassArray("EntityPlayer"), 1);
 	}
 
@@ -23,17 +28,22 @@ public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
 	 * @throws Exception when invalid data is passed into the constructor
 	 */
 	public NMSPlayerInfoPacketReflection(String infoValue, Object... players) throws Exception {
-		super("PacketPlayOutPlayerInfo", specialClasses,
-				enumPlayerActionClass().getField(infoValue.toUpperCase()).get(null),
-				ReflectionApi.castArrayToNMS("EntityPlayer", players));
+
+		super("PacketPlayOutPlayerInfo", specialClasses, enumPlayerActionClass().getField(infoValue.toUpperCase()).get(null), ReflectionApi.castArrayToNMS("EntityPlayer", players));
+
 	}
 
 	private static Class<?> enumPlayerActionClass() {
-		if(ReflectionApi.version.equals("1.8"))
-		{
-			return ReflectionApi.getNMSClass("EnumPlayerInfoAction");
+
+		try {
+			return Mappings.ENUM_PLAYER_ACTION_CLASS_MAPPING.getNMSClassMapping();
 		}
-		else return (ReflectionApi.getNMSInnerClass("EnumPlayerInfoAction", "PacketPlayOutPlayerInfo"));
+		catch (MappingsException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+
 	}
 
 }

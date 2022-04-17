@@ -12,6 +12,12 @@ public class NMSServerReflection extends NMSObjectReflection {
 		super(world.getNMSServer());
 
 	}
+	
+	public NMSServerReflection(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
 
 	public NMSServerReflection(Server server) {
 

@@ -8,6 +8,9 @@ import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.github.yeetmanlord.reflection_api.mappings.ClassNameMapping;
+import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+
 public class NMSObjectReflection {
 
 	protected Object nmsObject;
@@ -79,18 +82,68 @@ public class NMSObjectReflection {
 
 	}
 
+	public NMSObjectReflection(ClassNameMapping mapping, @Nullable Class<?>[] classes, Object[] args) {
+
+		try {
+			Class<?> clazz = mapping.getNMSClassMapping();
+			String className = clazz.getName().replaceFirst(clazz.getPackage().getName() + ".", "");
+			Constructor<?> constr;
+
+			if (classes == null) {
+
+				try {
+					constr = ReflectionApi.getNMSClass(className).getConstructor();
+					this.nmsObject = constr.newInstance();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+			else {
+
+				if (args != null) {
+
+					try {
+						constr = ReflectionApi.getNMSClass(className).getConstructor(classes);
+						this.nmsObject = constr.newInstance(args);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+
+			}
+
+		}
+		catch (MappingsException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/**
 	 * @param fieldName The name of a field
 	 * @return Returns the <i>value</i> of a field not the field itself. To get a
 	 *         {@link Field} object use {@link #getField(String)}
+	 * @throws NoSuchFieldException This is thrown when there is no existing field
+	 *                              with that name
 	 */
-	public Object getFieldFromNmsObject(String fieldName) {
+	public Object getFieldFromNmsObject(String fieldName) throws NoSuchFieldException {
 
 		try {
-			return nmsObject.getClass().getField(fieldName).get(this.nmsObject);
+			Field field = getField(fieldName);
+			field.setAccessible(true);
+			Object value = field.get(nmsObject);
+			field.setAccessible(false);
+			return value;
 		}
-		catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+		catch (IllegalArgumentException | SecurityException | IllegalAccessException e) {
 			e.printStackTrace();
+		}
+		catch (NoSuchFieldException e) {
+			throw (new NoSuchFieldException(fieldName + " is not a field in " + nmsObject.getClass()));
 		}
 
 		return null;
@@ -113,17 +166,24 @@ public class NMSObjectReflection {
 		Method method;
 
 		try {
-			method = nmsObject.getClass().getMethod(methodName, argsClasses);
+			method = getMethod(methodName, argsClasses);
+			method.setAccessible(true);
 
 			if (method.getReturnType().equals(void.class)) {
 				method.invoke(this.nmsObject, args);
+				method.setAccessible(false);
 				return null;
 			}
 
-			return method.invoke(this.nmsObject, args);
+			Object value = method.invoke(this.nmsObject, args);
+			method.setAccessible(false);
+			return value;
 		}
 		catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
+		}
+		catch (NoSuchMethodException e) {
+			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass()));
 		}
 
 		return null;
@@ -143,17 +203,24 @@ public class NMSObjectReflection {
 		Method method;
 
 		try {
-			method = nmsObject.getClass().getMethod(methodName);
+			method = getMethod(methodName);
+			method.setAccessible(true);
 
 			if (method.getReturnType().equals(void.class)) {
 				method.invoke(this.nmsObject);
+				method.setAccessible(false);
 				return null;
 			}
 
-			return method.invoke(this.nmsObject);
+			Object value = method.invoke(this.nmsObject);
+			method.setAccessible(false);
+			return value;
 		}
 		catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
+		}
+		catch (NoSuchMethodException e) {
+			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass()));
 		}
 
 		return null;
@@ -161,7 +228,6 @@ public class NMSObjectReflection {
 	}
 
 	/**
-	 * 
 	 * @param fieldName The field you want to get
 	 * @return Returns a {@link Field} object of the {@link #nmsObject}. To get the
 	 *         <i>value</i> of the field use {@link #getFieldFromNmsObject(String)}
@@ -170,10 +236,80 @@ public class NMSObjectReflection {
 	public Field getField(String fieldName) throws NoSuchFieldException {
 
 		try {
-			return nmsObject.getClass().getField(fieldName);
+			return nmsObject.getClass().getDeclaredField(fieldName);
 		}
-		catch (IllegalArgumentException | NoSuchFieldException | SecurityException e) {
+		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
+		}
+		catch (NoSuchFieldException e) {
+
+			try {
+				return nmsObject.getClass().getField(fieldName);
+			}
+			catch (NoSuchFieldException ex) {
+				throw (new NoSuchFieldException(fieldName + " is not a field in " + nmsObject.getClass()));
+			}
+
+		}
+
+		return null;
+
+	}
+
+	/**
+	 * @param methodName The field you want to get
+	 * @return Returns a {@link Method} object of the {@link #nmsObject}. To get the
+	 *         <i>return value or run</i> this method use
+	 *         {@link #invokeMethodForNmsObject(String)}
+	 * @throws NoSuchMethodException This is thrown when the method doesn't exist
+	 */
+	public Method getMethod(String methodName) throws NoSuchMethodException {
+
+		try {
+			return nmsObject.getClass().getDeclaredMethod(methodName);
+		}
+		catch (IllegalArgumentException | SecurityException e) {
+			e.printStackTrace();
+		}
+		catch (NoSuchMethodException e) {
+
+			try {
+				return nmsObject.getClass().getMethod(methodName);
+			}
+			catch (NoSuchMethodException ex) {
+				throw (new NoSuchMethodException(methodName + " is not a method in " + nmsObject.getClass()));
+			}
+
+		}
+
+		return null;
+
+	}
+
+	/**
+	 * @param methodName The field you want to get
+	 * @return Returns a {@link Method} object of the {@link #nmsObject}. To get the
+	 *         <i>return value or run</i> this method use
+	 *         {@link #invokeMethodForNmsObject(String, Class[], Object[])}
+	 * @throws NoSuchMethodException This is thrown when the method doesn't exist
+	 */
+	public Method getMethod(String methodName, Class<?>[] classes) throws NoSuchMethodException {
+
+		try {
+			return nmsObject.getClass().getDeclaredMethod(methodName, classes);
+		}
+		catch (IllegalArgumentException | SecurityException e) {
+			e.printStackTrace();
+		}
+		catch (NoSuchMethodException e) {
+
+			try {
+				return nmsObject.getClass().getMethod(methodName, classes);
+			}
+			catch (NoSuchMethodException ex) {
+				throw (new NoSuchMethodException(methodName + " is not a method in " + nmsObject.getClass()));
+			}
+
 		}
 
 		return null;

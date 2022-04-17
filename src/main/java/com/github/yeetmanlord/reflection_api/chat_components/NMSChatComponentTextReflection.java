@@ -5,11 +5,17 @@ import java.lang.reflect.Constructor;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 
-public class ChatComponentTextReflection extends NMSObjectReflection {
+public class NMSChatComponentTextReflection extends NMSObjectReflection {
 	
-	public ChatComponentTextReflection(String text) 
+	public NMSChatComponentTextReflection(String text) 
 	{
 		super(init(text));
+	}
+
+	public NMSChatComponentTextReflection(Object nmsObject) {
+
+		super(nmsObject);
+
 	}
 	
 	private static Object init(String text)

@@ -1,0 +1,8 @@
+target
+bin
+.settings
+.classpath
+.codetogether.ignore
+.progect
+*.txt
+.mvn

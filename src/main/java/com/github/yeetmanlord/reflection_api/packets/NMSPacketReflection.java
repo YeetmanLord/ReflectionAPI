@@ -5,8 +5,9 @@ import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
-import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.mappings.ClassNameMapping;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityDestroyPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSNamedEntitySpawnPacketReflection;
@@ -14,7 +15,9 @@ import com.github.yeetmanlord.reflection_api.packets.player.NMSPlayerInfoPacketR
 import com.github.yeetmanlord.reflection_api.packets.player.NMSScoreboardTeamPacketReflection;
 
 public class NMSPacketReflection extends NMSObjectReflection {
+
 	private Object nmsPacket;
+
 	private static HashMap<Class<?>, Class<?>> natives = new HashMap<>();
 
 	static {
@@ -46,36 +49,46 @@ public class NMSPacketReflection extends NMSObjectReflection {
 	 *                   of a byte) MAKE SURE TO CAST!!
 	 */
 	public NMSPacketReflection(String packetName, @Nullable Object... args) {
-		super(init(packetName, args));
+
+		super(packetName, init(args), args);
 		nmsPacket = nmsObject;
+
 	}
-	
-	private static Object init(String packetName, @Nullable Object... args)
-	{
+
+	public NMSPacketReflection(ClassNameMapping packetName, @Nullable Object... args) {
+
+		super(packetName, init(args), args);
+		nmsPacket = nmsObject;
+
+	}
+
+	private static Class<?>[] init(@Nullable Object[] args) {
+
 		int length = 0;
+
 		if (args != null && args[0] != null) {
 			length = args.length;
 		}
+
 		Class<?>[] classes = new Class<?>[length];
+
 		if (args != null && args[0] != null) {
+
 			for (int x = 0; x < args.length; x++) {
+
 				if (natives.keySet().contains(args[x].getClass())) {
 					classes[x] = natives.get(args[x].getClass());
-				} else {
+				}
+				else {
 					classes[x] = args[x].getClass();
 				}
+
 			}
+
 		}
-		try {
-			Constructor<?> packetConstructor = ReflectionApi.getNMSClass(packetName).getConstructor();
-			if (args != null && args[0] != null) {
-				packetConstructor = ReflectionApi.getNMSClass(packetName).getConstructor(classes);
-			}
-			return packetConstructor.newInstance(args);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+
+		return classes;
+
 	}
 
 	/**
@@ -88,49 +101,70 @@ public class NMSPacketReflection extends NMSObjectReflection {
 	 * @see NMSScoreboardTeamPacketReflection as well for another example
 	 */
 	public NMSPacketReflection(String packetName, HashMap<Class<?>, Integer> specialClassForObject, Object... args) {
+
 		super(init(packetName, specialClassForObject, args));
 		nmsPacket = nmsObject;
+
 	}
-	
-	private static Object init(String packetName, HashMap<Class<?>, Integer> specialClassForObject, Object... args) {
+
+	private static Object init(String packetName, HashMap<Class<?>, Integer> specialClassForObject, Object[] args) {
+
 		int length = args.length;
+
 		if (args.length < specialClassForObject.size()) {
-			throw (new IllegalArgumentException(
-					"The parameter specialClassForObject must be the same length or less than the given arguements length"));
+			throw (new IllegalArgumentException("The parameter specialClassForObject must be the same length or less than the given arguements length"));
 		}
+
 		Class<?>[] classes = new Class<?>[length];
+
 		for (Class<?> clazz : specialClassForObject.keySet()) {
+
 			if (natives.keySet().contains(clazz)) {
 				classes[specialClassForObject.get(clazz)] = natives.get(clazz);
-			} else
-				classes[specialClassForObject.get(clazz)] = clazz;
+			}
+			else classes[specialClassForObject.get(clazz)] = clazz;
+
 		}
+
 		for (int x = 0; x < length; x++) {
+
 			if (classes[x] == null) {
+
 				if (natives.keySet().contains(args[x].getClass())) {
 					classes[x] = natives.get(args[x].getClass());
-				} else {
+				}
+				else {
 					classes[x] = args[x].getClass();
 				}
+
 			}
+
 		}
+
 		try {
 			Constructor<?> packetConstructor = ReflectionApi.getNMSClass(packetName).getConstructor();
+
 			if (classes.length != 0) {
 				packetConstructor = ReflectionApi.getNMSClass(packetName).getConstructor(classes);
 			}
+
 			return packetConstructor.newInstance(args);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
+
 	}
 
 	/**
 	 * @return Returns the nmsPacket equivalent
 	 */
 	public Object getNmsPacket() {
+
 		return nmsPacket;
+
 	}
 
 }

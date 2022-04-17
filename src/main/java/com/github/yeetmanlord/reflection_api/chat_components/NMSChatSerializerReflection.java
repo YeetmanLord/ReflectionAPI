@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.ChatColor;
 
-import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 
 public class NMSChatSerializerReflection 
 {
@@ -12,15 +12,7 @@ public class NMSChatSerializerReflection
 	{
 		try
 		{
-			Class<?> clazz;
-			if(ReflectionApi.version.equals("1.8"))
-			{
-				clazz = ReflectionApi.getNMSClass("ChatSerializer");
-			}
-			else
-			{
-				clazz = ReflectionApi.getNMSInnerClass("ChatSerializer", "IChatBaseComponent");
-			}
+			Class<?> clazz = Mappings.CHAT_SERIALIZER_CLASS_MAPPING.getNMSClassMapping();
 			Method create = clazz.getMethod("a", String.class);
 			return create.invoke(null, string);
 		}

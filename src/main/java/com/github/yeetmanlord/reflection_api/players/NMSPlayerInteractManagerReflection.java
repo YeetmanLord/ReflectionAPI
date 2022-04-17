@@ -9,22 +9,35 @@ import com.github.yeetmanlord.reflection_api.world.NMSWorldServerReflection;
 public class NMSPlayerInteractManagerReflection extends NMSObjectReflection {
 
 	public NMSPlayerInteractManagerReflection(NMSWorldServerReflection worldServer) {
+
 		super(instance(worldServer));
+
+	}
+
+	public NMSPlayerInteractManagerReflection(Object nmsObject) {
+
+		super(nmsObject);
+
 	}
 
 	public Object getNmsManager() {
+
 		return nmsObject;
+
 	}
 
 	public static Object instance(NMSWorldServerReflection worldServer) {
+
 		try {
-			Constructor<?> managerConstructor = ReflectionApi.getNMSClass("PlayerInteractManager")
-					.getConstructor(worldServer.getNmsWorldServer().getClass().getSuperclass());
+			Constructor<?> managerConstructor = ReflectionApi.getNMSClass("PlayerInteractManager").getConstructor(worldServer.getNmsWorldServer().getClass().getSuperclass());
 			return managerConstructor.newInstance(ReflectionApi.getNMSClass("World").cast(worldServer.getNmsWorldServer()));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
+
 	}
 
 }
