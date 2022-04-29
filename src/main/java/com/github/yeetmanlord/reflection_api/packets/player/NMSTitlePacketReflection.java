@@ -9,6 +9,7 @@ import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 
 public class NMSTitlePacketReflection extends NMSPacketReflection {
+
 	private static HashMap<Class<?>, Integer> classes = new HashMap<>();
 	static {
 		classes.put(ReflectionApi.getNMSClass("IChatBaseComponent"), 1);
@@ -23,7 +24,9 @@ public class NMSTitlePacketReflection extends NMSPacketReflection {
 	 *                  disappear
 	 */
 	public NMSTitlePacketReflection(int fadeIn, int timeShown, int fadeOut) {
+
 		this("TIMES", ReflectionApi.getNMSClass("IChatBaseComponent").cast(null), fadeIn, timeShown, fadeOut);
+
 	}
 
 	/**
@@ -34,10 +37,13 @@ public class NMSTitlePacketReflection extends NMSPacketReflection {
 	 * @param chatComponent   An NMS IChatBaseComponent gotten either by
 	 *                        {@link NMSChatSerializerReflection#createChatComponentFromString(String)},
 	 *                        {@link NMSChatSerializerReflection#createChatComponentFromRawText(String)},
-	 *                        or {@link NMSChatComponentTextReflection#getComponent()}
+	 *                        or
+	 *                        {@link NMSChatComponentTextReflection#getComponent()}
 	 */
 	public NMSTitlePacketReflection(String enumTitleAction, Object chatComponent) {
+
 		this(enumTitleAction, chatComponent, -1, -1, -1);
+
 	}
 
 	/**
@@ -49,27 +55,35 @@ public class NMSTitlePacketReflection extends NMSPacketReflection {
 	 * @param chatComponent   An NMS IChatBaseComponent gotten either by
 	 *                        {@link NMSChatSerializerReflection#createChatComponentFromString(String)},
 	 *                        {@link NMSChatSerializerReflection#createChatComponentFromRawText(String)},
-	 *                        or {@link NMSChatComponentTextReflection#getComponent()}
+	 *                        or
+	 *                        {@link NMSChatComponentTextReflection#getComponent()}
 	 * @param fadeIn          Time in ticks it takes for the title to fade in.
 	 * @param timeShown       Time in ticks before the title starts to fade out
 	 * @param fadeOut         Time in ticks it takes for the title to fade out and
 	 *                        disappear
 	 */
-	public NMSTitlePacketReflection(String enumTitleAction, Object chatComponent, int fadeIn, int timeShow,
-			int fadeOut) {
+	public NMSTitlePacketReflection(String enumTitleAction, Object chatComponent, int fadeIn, int timeShow, int fadeOut) {
+
 		super("PacketPlayOutTitle", classes, getTitleAction(enumTitleAction), chatComponent, fadeIn, timeShow, fadeOut);
+
 	}
 
 	private static Object getTitleAction(String enumField) {
+
 		try {
 			Class<?> clazz = Mappings.ENUM_TITLE_ACTION_CLASS_MAPPING.getNMSClassMapping();
 			return clazz.getField(enumField).get(null);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
+
 	}
 	
+	public static NMSTitlePacketReflection clear() {
+		return new NMSTitlePacketReflection("CLEAR", ReflectionApi.getNMSClass("IChatBaseComponent").cast(null));
+	}
 	
-
 }
