@@ -8,8 +8,8 @@ import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.github.yeetmanlord.reflection_api.mappings.ClassNameMapping;
 import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;
 
 public class NMSObjectReflection {
 
@@ -183,7 +183,7 @@ public class NMSObjectReflection {
 			e.printStackTrace();
 		}
 		catch (NoSuchMethodException e) {
-			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass()));
+			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass() + " check that the parameter classes and method name are correct."));
 		}
 
 		return null;

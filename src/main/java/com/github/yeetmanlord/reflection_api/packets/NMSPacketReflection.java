@@ -7,7 +7,8 @@ import javax.annotation.Nullable;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
-import com.github.yeetmanlord.reflection_api.mappings.ClassNameMapping;
+import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityDestroyPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSNamedEntitySpawnPacketReflection;
@@ -18,10 +19,13 @@ public class NMSPacketReflection extends NMSObjectReflection {
 
 	private Object nmsPacket;
 
+	private String name;
+
 	private static HashMap<Class<?>, Class<?>> natives = new HashMap<>();
 
 	static {
 		natives.put(Integer.class, int.class);
+		natives.put(Long.class, long.class);
 		natives.put(Boolean.class, boolean.class);
 		natives.put(Double.class, double.class);
 		natives.put(Float.class, float.class);
@@ -31,6 +35,7 @@ public class NMSPacketReflection extends NMSObjectReflection {
 		natives.put(Double[].class, double[].class);
 		natives.put(Float[].class, float[].class);
 		natives.put(Byte[].class, byte[].class);
+		natives.put(Long[].class, long[].class);
 	}
 
 	/**
@@ -52,6 +57,7 @@ public class NMSPacketReflection extends NMSObjectReflection {
 
 		super(packetName, init(args), args);
 		nmsPacket = nmsObject;
+		this.name = packetName;
 
 	}
 
@@ -59,6 +65,13 @@ public class NMSPacketReflection extends NMSObjectReflection {
 
 		super(packetName, init(args), args);
 		nmsPacket = nmsObject;
+		try {
+			this.name = packetName.getName() + ": " + packetName.getNMSClassMapping().getName().replaceFirst(packetName.getNMSClassMapping().getPackage().getName() + ".", "");
+		}
+		catch (MappingsException e) {
+			e.printStackTrace();
+			this.name = packetName.name;
+		}
 
 	}
 
@@ -104,6 +117,7 @@ public class NMSPacketReflection extends NMSObjectReflection {
 
 		super(init(packetName, specialClassForObject, args));
 		nmsPacket = nmsObject;
+		this.name = packetName;
 
 	}
 
@@ -164,6 +178,12 @@ public class NMSPacketReflection extends NMSObjectReflection {
 	public Object getNmsPacket() {
 
 		return nmsPacket;
+
+	}
+
+	public String getPacketName() {
+
+		return name;
 
 	}
 

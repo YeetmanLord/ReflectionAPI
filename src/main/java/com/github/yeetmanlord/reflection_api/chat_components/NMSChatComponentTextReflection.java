@@ -2,8 +2,8 @@ package com.github.yeetmanlord.reflection_api.chat_components;
 
 import java.lang.reflect.Constructor;
 
-import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
 public class NMSChatComponentTextReflection extends NMSObjectReflection {
 	

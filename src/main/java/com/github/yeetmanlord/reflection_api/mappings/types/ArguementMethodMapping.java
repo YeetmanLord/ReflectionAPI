@@ -1,12 +1,15 @@
-package com.github.yeetmanlord.reflection_api.mappings;
+package com.github.yeetmanlord.reflection_api.mappings.types;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.mappings.Mapping;
+import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 
-public class ArguementlessMethodMapping<ReturnType> implements Mapping {
+public class ArguementMethodMapping<ReturnType> implements Mapping<String> {
 
 	public Class<? extends NMSObjectReflection> reflectionType;
 
@@ -14,11 +17,25 @@ public class ArguementlessMethodMapping<ReturnType> implements Mapping {
 
 	public String name;
 
-	public ArguementlessMethodMapping(String name, Class<? extends NMSObjectReflection> type, Map<VersionRange, String> mappings) {
+	private Class<?>[] argTypes;
+
+	public ArguementMethodMapping(String name, Class<? extends NMSObjectReflection> type, Map<VersionRange, String> mappings, Class<?>... argTypes) {
 
 		this.reflectionType = type;
 		this.mappings = mappings;
+		this.argTypes = argTypes;
 		this.name = name;
+
+	}
+
+	/**
+	 * Sets arguement types when the arg is an nms class (which can change)
+	 * 
+	 * @param type The arguments type (class)
+	 */
+	public void setArgType(Class<?>... type) {
+
+		argTypes = type;
 
 	}
 
@@ -31,6 +48,7 @@ public class ArguementlessMethodMapping<ReturnType> implements Mapping {
 	/**
 	 * 
 	 * @param reflection The reflection object to use to run the method
+	 * @param args       The arguments of the method
 	 * @return Returns an instance of this mappings ReturnType if the method has a
 	 *         return. If the reflection object is not an instance of
 	 *         {@link #reflectionType} it will return null.
@@ -38,7 +56,7 @@ public class ArguementlessMethodMapping<ReturnType> implements Mapping {
 	 *                           mapping cannot find a matching mapping for the
 	 *                           current version
 	 */
-	public ReturnType runMethod(NMSObjectReflection reflection) throws MappingsException {
+	public ReturnType runMethod(NMSObjectReflection reflection, Object... args) throws MappingsException {
 
 		if (reflectionType.isInstance(reflection)) {
 
@@ -47,7 +65,7 @@ public class ArguementlessMethodMapping<ReturnType> implements Mapping {
 				if (range.isWithinRange(ReflectionApi.version)) {
 
 					try {
-						return (ReturnType) reflection.invokeMethodForNmsObject(mappings.get(range));
+						return (ReturnType) reflection.invokeMethodForNmsObject(mappings.get(range), argTypes, args);
 					}
 					catch (NoSuchMethodException e) {
 					}
@@ -83,7 +101,7 @@ public class ArguementlessMethodMapping<ReturnType> implements Mapping {
 		for (int x = 0; x < mappings.keySet().size(); x++) {
 		}
 
-		return "ArguementlessMethodMapping{name: " + name + ", mappings: " + maps + "}";
+		return "ArguementMethodMapping{name: " + name + ", mappings: " + maps + "}";
 
 	}
 

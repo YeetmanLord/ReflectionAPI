@@ -1,5 +1,10 @@
 package com.github.yeetmanlord.reflection_api.mappings;
 
+import com.github.yeetmanlord.reflection_api.mappings.types.ArguementMethodMapping;
+import com.github.yeetmanlord.reflection_api.mappings.types.ArguementlessMethodMapping;
+import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;
+import com.github.yeetmanlord.reflection_api.mappings.types.FieldMapping;
+import com.github.yeetmanlord.reflection_api.mappings.types.ValueMapping;
 import com.github.yeetmanlord.reflection_api.packets.network.NMSNetworkManagerReflection;
 import com.github.yeetmanlord.reflection_api.scoreboard.NMSScoreboardTeamReflection;
 import com.google.common.collect.Maps;
@@ -47,6 +52,8 @@ public class Mappings {
 	public static final ClassNameMapping PACKET_PLAY_OUT_REL_ENTITY_MOVE_LOOK_CLASS_MAPPING = new ClassNameMapping("PacketPlayOutRelEntityMoveLook", Maps.newHashMap());
 
 	public static final ClassNameMapping ENUM_ENTITY_USE_ACTION_CLASS_MAPPING = new ClassNameMapping("EnumEntityUseAction", Maps.newHashMap());
+	
+	public static final ValueMapping<Integer> DATA_WATCHER_PLAYER_SKIN_LAYER_INDEX = new ValueMapping<>("DataWatcherPlayerSkinLayerIndex", Maps.newHashMap());
 
 	public static void loadMappings() throws MappingsException {
 
@@ -80,6 +87,10 @@ public class Mappings {
 
 		ENUM_ENTITY_USE_ACTION_CLASS_MAPPING.addMapping(new VersionRange("1.8", "1.8.1"), "EnumEntityUseAction");
 		ENUM_ENTITY_USE_ACTION_CLASS_MAPPING.addMapping(new VersionRange("1.8.1", "1.19"), "PacketPlayInUseEntity$EnumEntityUseAction");
+
+		DATA_WATCHER_PLAYER_SKIN_LAYER_INDEX.addMapping(new VersionRange("1.8", "1.9"), 10);
+		DATA_WATCHER_PLAYER_SKIN_LAYER_INDEX.addMapping(new VersionRange("1.9", "1.17"), 12);
+		DATA_WATCHER_PLAYER_SKIN_LAYER_INDEX.addMapping(new VersionRange("1.17", "1.19"), 17);
 
 	}
 

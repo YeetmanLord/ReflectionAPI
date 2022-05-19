@@ -1,6 +1,9 @@
 package com.github.yeetmanlord.reflection_api.entity;
 
+import java.util.Map;
+
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
 public class NMSDataWatcherReflection extends NMSObjectReflection {
 
@@ -35,10 +38,32 @@ public class NMSDataWatcherReflection extends NMSObjectReflection {
 
 	}
 
-	public void watch(int i, Object data) {
+	/**
+	 * WARNING DOES NOT ACCEPT VALUES NOT ALREADY EXISTING IN THE DATA WATCHER THIS
+	 * IS STRICTLY FOR SETTING VALUES!!!!
+	 * 
+	 * @param <T>          Specifies the data type
+	 * @param index        Which metadata value to change
+	 * @param data         The new data value
+	 * @param registryType the name of the variable that corresponds to the data
+	 *                     type you are looking for (Check DataWatcherRegistry for
+	 *                     more)
+	 */
+	public <T> void watch(int index, T data, String registryType) {
 
 		try {
-			nmsObject.getClass().getMethod("watch", int.class, Object.class).invoke(nmsObject, i, data);
+
+			if (ReflectionApi.version.isNewer("1.9")) {
+				Object obj = ReflectionApi.getNMSClass("DataWatcherRegistry").getField(registryType).get(null);
+				Object obj1 = ReflectionApi.getNMSClass("DataWatcherSerializer").getMethod("a", int.class).invoke(obj, index);
+				((Map<Integer, Object>) this.getFieldFromNmsObject("c")).remove(index);
+				ReflectionApi.getNMSClass("DataWatcher").getMethod("register", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
+				ReflectionApi.getNMSClass("DataWatcher").getMethod("set", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
+			}
+			else {
+				nmsObject.getClass().getMethod("watch", int.class, Object.class).invoke(nmsObject, index, data);
+			}
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();

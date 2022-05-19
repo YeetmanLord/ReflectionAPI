@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public interface Mapping {
+public interface Mapping<Type> {
 
 	/**
 	 * @return Returns the internal name of a mapping
@@ -16,7 +16,7 @@ public interface Mapping {
 	 *         to specify in which versions the mapping will be used and a
 	 *         {@link String} for what the name of the field/method/class is
 	 */
-	Map<VersionRange, String> getMappings();
+	Map<VersionRange, Type> getMappings();
 
 	/**
 	 * Adds mappings for a {@link VersionRange}. If you would like to add your own
@@ -25,6 +25,6 @@ public interface Mapping {
 	 * @param range The key to specify in which versions the mapping will be used
 	 * @param value What the name of the field/method/class is
 	 */
-	void addMapping(VersionRange range, String value);
+	void addMapping(VersionRange range, Type value);
 
 }

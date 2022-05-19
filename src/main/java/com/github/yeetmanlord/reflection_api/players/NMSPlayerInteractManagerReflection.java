@@ -2,8 +2,8 @@ package com.github.yeetmanlord.reflection_api.players;
 
 import java.lang.reflect.Constructor;
 
-import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.world.NMSWorldServerReflection;
 
 public class NMSPlayerInteractManagerReflection extends NMSObjectReflection {

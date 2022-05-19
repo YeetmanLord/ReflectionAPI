@@ -1,12 +1,15 @@
-package com.github.yeetmanlord.reflection_api.mappings;
+package com.github.yeetmanlord.reflection_api.mappings.types;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.mappings.Mapping;
+import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 
-public class FieldMapping<FieldType> implements Mapping {
+public class FieldMapping<FieldType> implements Mapping<String> {
 
 	public Class<? extends NMSObjectReflection> reflectionType;
 

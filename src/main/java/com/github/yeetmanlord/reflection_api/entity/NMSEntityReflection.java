@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 
 import org.bukkit.entity.Entity;
 
-import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
 public class NMSEntityReflection extends NMSObjectReflection {
 	private NMSDataWatcherReflection dataWatcher;
