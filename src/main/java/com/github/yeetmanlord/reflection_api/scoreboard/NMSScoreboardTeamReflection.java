@@ -2,6 +2,7 @@ package com.github.yeetmanlord.reflection_api.scoreboard;
 
 import java.lang.reflect.Constructor;
 
+import org.bukkit.ChatColor;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -9,8 +10,6 @@ import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class NMSScoreboardTeamReflection extends NMSObjectReflection {
 
