@@ -3,21 +3,23 @@ package com.github.yeetmanlord.reflection_api.packets.player;
 import java.util.HashMap;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
-import com.github.yeetmanlord.reflection_api.players.NMSPlayerReflection;
 
 public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
 
 	private static HashMap<Class<?>, Integer> specialClasses = new HashMap<>();
 	static {
+
 		try {
 			specialClasses.put(Mappings.ENUM_PLAYER_ACTION_CLASS_MAPPING.getNMSClassMapping(), 0);
 		}
 		catch (MappingsException e) {
 			e.printStackTrace();
 		}
+
 		specialClasses.put(ReflectionApi.getNMSClassArray("EntityPlayer"), 1);
 	}
 
@@ -41,7 +43,7 @@ public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
 		catch (MappingsException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 
 	}

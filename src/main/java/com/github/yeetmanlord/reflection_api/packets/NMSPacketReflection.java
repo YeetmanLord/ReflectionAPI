@@ -65,6 +65,7 @@ public class NMSPacketReflection extends NMSObjectReflection {
 
 		super(packetName, init(args), args);
 		nmsPacket = nmsObject;
+
 		try {
 			this.name = packetName.getName() + ": " + packetName.getNMSClassMapping().getName().replaceFirst(packetName.getNMSClassMapping().getPackage().getName() + ".", "");
 		}
@@ -184,6 +185,17 @@ public class NMSPacketReflection extends NMSObjectReflection {
 	public String getPacketName() {
 
 		return name;
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("packet", nmsPacket);
+		values.put("packetName", name);
+		return "PacketReflection" + values.toString();
 
 	}
 

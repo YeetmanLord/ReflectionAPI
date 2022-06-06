@@ -1,5 +1,7 @@
 package com.github.yeetmanlord.reflection_api.server;
 
+import java.util.HashMap;
+
 import org.bukkit.Server;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
@@ -12,7 +14,7 @@ public class NMSServerReflection extends NMSObjectReflection {
 		super(world.getNMSServer());
 
 	}
-	
+
 	public NMSServerReflection(Object nmsObject) {
 
 		super(nmsObject);
@@ -39,6 +41,16 @@ public class NMSServerReflection extends NMSObjectReflection {
 	public Object getNmsServer() {
 
 		return nmsObject;
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("server", nmsObject);
+		return "ServerReflection" + values.toString();
 
 	}
 

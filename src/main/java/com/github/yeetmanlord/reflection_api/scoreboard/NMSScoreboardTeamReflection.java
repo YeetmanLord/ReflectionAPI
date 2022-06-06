@@ -1,6 +1,7 @@
 package com.github.yeetmanlord.reflection_api.scoreboard;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.scoreboard.NameTagVisibility;
@@ -217,6 +218,22 @@ public class NMSScoreboardTeamReflection extends NMSObjectReflection {
 		}
 
 		return null;
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("team", nmsObject);
+		values.put("prefix", getPrefix());
+		values.put("chatFormat", getChatFormat());
+		values.put("displayName", getDisplayName());
+		values.put("nametagVisibility", getNametagVisibility());
+		values.put("suffix", getSuffix());
+		values.put("allowsFriendlyFire", allowFriendlyFire());
+		return "ScoreboardTeamReflection" + values.toString();
 
 	}
 

@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -322,6 +323,16 @@ public class NMSObjectReflection {
 	public Object getNmsObject() {
 
 		return nmsObject;
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("object", nmsObject);
+		return "ObjectReflection" + values.toString();
 
 	}
 

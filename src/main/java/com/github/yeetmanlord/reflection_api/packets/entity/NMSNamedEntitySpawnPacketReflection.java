@@ -3,8 +3,8 @@ package com.github.yeetmanlord.reflection_api.packets.entity;
 import java.util.HashMap;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
-import com.github.yeetmanlord.reflection_api.players.NMSPlayerReflection;
 
 public class NMSNamedEntitySpawnPacketReflection extends NMSPacketReflection {
 	private static HashMap<Class<?>, Integer> classObjectMap = new HashMap<>();

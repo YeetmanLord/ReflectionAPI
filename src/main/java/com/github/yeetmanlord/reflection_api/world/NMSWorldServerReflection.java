@@ -2,6 +2,7 @@ package com.github.yeetmanlord.reflection_api.world;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.World;
@@ -9,7 +10,7 @@ import org.bukkit.World;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.entity.NMSEntityReflection;
-import com.github.yeetmanlord.reflection_api.players.NMSPlayerReflection;
+import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 
 public class NMSWorldServerReflection extends NMSObjectReflection {
@@ -108,6 +109,17 @@ public class NMSWorldServerReflection extends NMSObjectReflection {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("worldServer", nmsObject);
+		values.put("server", server.toString());
+		return "WorldServerReflection" + values.toString();
 
 	}
 

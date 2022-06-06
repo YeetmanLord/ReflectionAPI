@@ -1,4 +1,4 @@
-package com.github.yeetmanlord.reflection_api.players;
+package com.github.yeetmanlord.reflection_api.entity.players;
 
 import java.lang.reflect.Constructor;
 

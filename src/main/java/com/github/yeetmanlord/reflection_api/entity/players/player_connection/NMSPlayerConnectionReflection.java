@@ -1,16 +1,17 @@
-package com.github.yeetmanlord.reflection_api.players.player_connection;
+package com.github.yeetmanlord.reflection_api.entity.players.player_connection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.network.NMSNetworkManagerReflection;
-import com.github.yeetmanlord.reflection_api.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 
 public class NMSPlayerConnectionReflection extends NMSObjectReflection {
@@ -134,6 +135,16 @@ public class NMSPlayerConnectionReflection extends NMSObjectReflection {
 	public NMSNetworkManagerReflection getNetworkManager() {
 
 		return new NMSNetworkManagerReflection(this.nmsNetworkManager());
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("object", nmsObject);
+		return "PlayerConnectionReflection" + values.toString();
 
 	}
 

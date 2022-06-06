@@ -6,10 +6,11 @@ import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
 public class NMSChatComponentTextReflection extends NMSObjectReflection {
-	
-	public NMSChatComponentTextReflection(String text) 
-	{
+
+	public NMSChatComponentTextReflection(String text) {
+
 		super(init(text));
+
 	}
 
 	public NMSChatComponentTextReflection(Object nmsObject) {
@@ -17,23 +18,25 @@ public class NMSChatComponentTextReflection extends NMSObjectReflection {
 		super(nmsObject);
 
 	}
-	
-	private static Object init(String text)
-	{
-		try
-		{
+
+	private static Object init(String text) {
+
+		try {
 			Constructor<?> constr = ReflectionApi.getNMSClass("ChatComponentText").getConstructor(String.class);
 			return constr.newInstance(text);
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
+
 	}
-	
-	public Object getComponent()
-	{
+
+	public Object getComponent() {
+
 		return nmsObject;
+
 	}
+
 }

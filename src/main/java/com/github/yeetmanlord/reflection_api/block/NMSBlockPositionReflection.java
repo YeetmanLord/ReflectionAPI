@@ -2,12 +2,14 @@ package com.github.yeetmanlord.reflection_api.block;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.google.common.collect.ImmutableMap;
 
 public class NMSBlockPositionReflection extends NMSObjectReflection {
 
@@ -72,6 +74,17 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 	public NMSBlockPositionReflection add(NMSBlockPositionReflection blockPosition) {
 
 		return add(this.x, this.y, this.z);
+
+	}
+
+	@Override
+	public String toString() {
+
+		HashMap<String, Object> values = new HashMap<>();
+		values.put("type", nmsObject.getClass());
+		values.put("object", this.nmsObject);
+		values.put("location", ImmutableMap.of("x", x, "y", y, "z", z));
+		return "BlockPosReflection" + values.toString();
 
 	}
 
