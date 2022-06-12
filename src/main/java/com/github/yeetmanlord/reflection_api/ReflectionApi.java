@@ -104,6 +104,29 @@ public class ReflectionApi extends JavaPlugin {
 
 	}
 
+	public static Class<?> getCraftBukkitClass(String className, String subpackage) {
+
+		String pack = Bukkit.getServer().getClass().getPackage().getName();
+
+		if (!subpackage.isEmpty() && subpackage.charAt(subpackage.length() - 1) != '.') {
+			subpackage += '.';
+		}
+
+		String name = pack + "." + subpackage + className;
+		Class<?> bukkitClass;
+
+		try {
+			bukkitClass = Class.forName(name);
+			return bukkitClass;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
 	public static Class<?> getNMSInnerClass(String innerClassName, String parenetClassName) {
 
 		String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";

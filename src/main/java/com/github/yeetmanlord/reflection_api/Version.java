@@ -2,11 +2,39 @@ package com.github.yeetmanlord.reflection_api;
 
 public class Version implements Comparable<Version> {
 
+	public class VersionFormatException extends Exception {
+
+		private static final long serialVersionUID = 5394422750058896194L;
+
+		public VersionFormatException() {
+
+			super();
+
+		}
+
+		public VersionFormatException(String versionString) {
+
+			super(versionString);
+
+		}
+
+		public VersionFormatException(String versionString, String msg) {
+
+			super(msg + ": " + versionString);
+
+		}
+
+	}
+
 	private String version;
 
 	private int majorVersion, minorVersion;
 
-	public Version(String version) {
+	public Version(String version) throws VersionFormatException {
+
+		if (!(version.matches("\\d.\\d\\d") || version.matches("\\d.\\d\\d.\\d") || version.matches("\\d.\\d\\d.\\d\\d") || version.matches("\\d.\\d") || version.matches("\\d.\\d.\\d") || version.matches("\\d.\\d.\\d\\d"))) {
+			throw new VersionFormatException("Invalid version format", version);
+		}
 
 		this.version = version;
 		String[] split = version.replace(".", "_").split("_");
@@ -75,7 +103,14 @@ public class Version implements Comparable<Version> {
 	 */
 	public boolean isOlder(String version) {
 
-		return isOlder(new Version(version));
+		try {
+			return isOlder(new Version(version));
+		}
+		catch (VersionFormatException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 
 	}
 
@@ -104,7 +139,14 @@ public class Version implements Comparable<Version> {
 	 */
 	public boolean isNewer(String version) {
 
-		return isNewer(new Version(version));
+		try {
+			return isNewer(new Version(version));
+		}
+		catch (VersionFormatException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 
 	}
 
@@ -154,7 +196,14 @@ public class Version implements Comparable<Version> {
 
 	public boolean equals(String version) {
 
-		return this.equals(new Version(version));
+		try {
+			return this.equals(new Version(version));
+		}
+		catch (VersionFormatException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 
 	}
 

@@ -1,6 +1,7 @@
 package com.github.yeetmanlord.reflection_api.mappings;
 
 import com.github.yeetmanlord.reflection_api.Version;
+import com.github.yeetmanlord.reflection_api.Version.VersionFormatException;
 
 public class VersionRange {
 
@@ -23,7 +24,20 @@ public class VersionRange {
 	 */
 	public VersionRange(String start, String end) {
 
-		this(new Version(start), new Version(end));
+		this(a(start), a(end));
+
+	}
+
+	private static Version a(String a) {
+
+		try {
+			return new Version(a);
+		}
+		catch (VersionFormatException exc) {
+			exc.printStackTrace();
+		}
+
+		return new Version(0, 0);
 
 	}
 
