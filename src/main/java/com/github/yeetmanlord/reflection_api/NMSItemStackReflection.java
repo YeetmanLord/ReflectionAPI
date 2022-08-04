@@ -8,6 +8,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class NMSItemStackReflection extends NMSObjectReflection {
 
+	public NMSItemStackReflection(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
+
 	public NMSItemStackReflection(ItemStack stack) {
 
 		super(init(stack));
@@ -49,6 +55,18 @@ public class NMSItemStackReflection extends NMSObjectReflection {
 		}
 
 		return null;
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("ItemStack");
+
+	public static NMSItemStackReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSItemStackReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSItemStackReflection");
 
 	}
 

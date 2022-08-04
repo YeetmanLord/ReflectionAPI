@@ -57,8 +57,8 @@ public class NMSDataWatcherReflection extends NMSObjectReflection {
 				Object obj = ReflectionApi.getNMSClass("DataWatcherRegistry").getField(registryType).get(null);
 				Object obj1 = ReflectionApi.getNMSClass("DataWatcherSerializer").getMethod("a", int.class).invoke(obj, index);
 				((Map<Integer, Object>) this.getFieldFromNmsObject("c")).remove(index);
-				ReflectionApi.getNMSClass("DataWatcher").getMethod("register", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
-				ReflectionApi.getNMSClass("DataWatcher").getMethod("set", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
+				staticClass.getMethod("register", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
+				staticClass.getMethod("set", ReflectionApi.getNMSClass("DataWatcherObject"), Object.class).invoke(this.nmsObject, obj1, data);
 			}
 			else {
 				nmsObject.getClass().getMethod("watch", int.class, Object.class).invoke(nmsObject, index, data);
@@ -68,6 +68,18 @@ public class NMSDataWatcherReflection extends NMSObjectReflection {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("DataWatcher");
+
+	public static NMSDataWatcherReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSDataWatcherReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSDataWatcherReflection");
 
 	}
 

@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
-import com.github.yeetmanlord.reflection_api.mappings.Mapping;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.IMapping;
 import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 
-public class ClassNameMapping implements Mapping<String> {
+public class ClassNameMapping implements IMapping<String> {
 
 	public Map<VersionRange, String> mappings;
 

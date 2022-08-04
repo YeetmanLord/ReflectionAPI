@@ -95,7 +95,7 @@ public class NMSPlayerConnectionReflection extends NMSObjectReflection {
 	private static Object instance(NMSServerReflection server, NMSNetworkManagerReflection netManager, NMSPlayerReflection player) {
 
 		try {
-			Constructor<?> playerConnectionConstructor = ReflectionApi.getNMSClass("PlayerConnection").getConstructor(server.getNmsServer().getClass().getSuperclass(), netManager.getNmsNetworkManager().getClass(), player.getNmsPlayer().getClass());
+			Constructor<?> playerConnectionConstructor = staticClass.getConstructor(server.getNmsServer().getClass().getSuperclass(), netManager.getNmsNetworkManager().getClass(), player.getNmsPlayer().getClass());
 			return playerConnectionConstructor.newInstance(server.getNmsServer(), netManager.getNmsNetworkManager(), player.getNmsPlayer());
 		}
 		catch (Exception e) {
@@ -145,6 +145,18 @@ public class NMSPlayerConnectionReflection extends NMSObjectReflection {
 		values.put("type", nmsObject.getClass());
 		values.put("object", nmsObject);
 		return "PlayerConnectionReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("PlayerConnection");
+
+	public static NMSPlayerConnectionReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSPlayerConnectionReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPlayerConnectionReflection");
 
 	}
 

@@ -145,4 +145,16 @@ public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
 
 	}
 
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("NBTTagCompound");
+
+	public static NMSNBTTagCompoundReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSNBTTagCompoundReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSNBTTagCompoundReflection");
+
+	}
+
 }

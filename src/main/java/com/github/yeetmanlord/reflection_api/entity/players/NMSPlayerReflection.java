@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.entity.Player;
 
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.entity.NMSEntityReflection;
 import com.github.yeetmanlord.reflection_api.entity.players.player_connection.NMSPlayerConnectionReflection;
@@ -20,7 +21,7 @@ public class NMSPlayerReflection extends NMSEntityReflection {
 
 	public NMSPlayerReflection(NMSServerReflection server, NMSWorldServerReflection world, GameProfile profile, NMSPlayerInteractManagerReflection interactManager) throws Exception {
 
-		super(ReflectionApi.getNMSClass("EntityPlayer").getConstructor(server.getNmsServer().getClass().getSuperclass(), world.getNmsWorldServer().getClass(), profile.getClass(), interactManager.getNmsManager().getClass()).newInstance(server.getNmsServer(), world.getNmsWorldServer(), profile, interactManager.getNmsManager()));
+		super(staticClass.getConstructor(server.getNmsServer().getClass().getSuperclass(), world.getNmsWorldServer().getClass(), profile.getClass(), interactManager.getNmsManager().getClass()).newInstance(server.getNmsServer(), world.getNmsWorldServer(), profile, interactManager.getNmsManager()));
 		nmsPlayer = this.nmsObject;
 		connection = new NMSPlayerConnectionReflection(this);
 
@@ -38,8 +39,8 @@ public class NMSPlayerReflection extends NMSEntityReflection {
 
 		super(nmsPlayer);
 
-		if (ReflectionApi.getNMSClass("EntityPlayer").isInstance(nmsPlayer)) {
-			this.nmsPlayer = ReflectionApi.getNMSClass("EntityPlayer").cast(nmsPlayer);
+		if (staticClass.isInstance(nmsPlayer)) {
+			this.nmsPlayer = staticClass.cast(nmsPlayer);
 			connection = new NMSPlayerConnectionReflection(this);
 		}
 
@@ -65,7 +66,7 @@ public class NMSPlayerReflection extends NMSEntityReflection {
 
 	public static boolean isInstance(NMSEntityReflection entity) {
 
-		return ReflectionApi.getNMSClass("EntityPlayer").isInstance(entity.getNmsEntity());
+		return staticClass.isInstance(entity.getNmsEntity());
 
 	}
 
@@ -98,6 +99,18 @@ public class NMSPlayerReflection extends NMSEntityReflection {
 		values.put("entity", this.nmsObject);
 		values.put("location", ImmutableMap.of("x", locX, "y", locY, "z", locZ));
 		return "PlayerReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("EntityPlayer");
+
+	public static NMSPlayerReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSPlayerReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPlayerReflection");
 
 	}
 

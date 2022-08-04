@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.Server;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.world.NMSWorldServerReflection;
 
 public class NMSServerReflection extends NMSObjectReflection {
@@ -51,6 +52,18 @@ public class NMSServerReflection extends NMSObjectReflection {
 		values.put("type", nmsObject.getClass());
 		values.put("server", nmsObject);
 		return "ServerReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("MinecraftServer");
+
+	public static NMSServerReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSServerReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSServerReflection");
 
 	}
 

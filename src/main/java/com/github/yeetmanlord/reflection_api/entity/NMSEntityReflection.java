@@ -6,26 +6,34 @@ import java.util.HashMap;
 import org.bukkit.entity.Entity;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectedField;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 import com.google.common.collect.ImmutableMap;
 
 public class NMSEntityReflection extends NMSObjectReflection {
 
 	private NMSDataWatcherReflection dataWatcher;
 
-	public double locX;
+	public ReflectedField<Double> locX;
 
-	public double locY;
+	public ReflectedField<Double> locY;
 
-	public double locZ;
+	public ReflectedField<Double> locZ;
 
 	public NMSEntityReflection(Entity entity) {
 
 		super(entity, "getHandle");
 		this.dataWatcher = new NMSDataWatcherReflection(this);
-		locX = entity.getLocation().getX();
-		locY = entity.getLocation().getY();
-		locZ = entity.getLocation().getZ();
+
+		try {
+			locX = new ReflectedField<>("locX", false, false, this);
+			locY = new ReflectedField<>("locY", false, false, this);
+			locZ = new ReflectedField<>("locZ", false, false, this);
+		}
+		catch (FieldReflectionExcpetion e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -33,15 +41,22 @@ public class NMSEntityReflection extends NMSObjectReflection {
 
 		super(nmsEntity);
 
-		if (ReflectionApi.getNMSClass("Entity").isInstance(nmsEntity)) {
+		if (staticClass.isInstance(nmsEntity)) {
 			this.dataWatcher = new NMSDataWatcherReflection(this);
 
 			try {
-				locX = nmsEntity.getClass().getField("locX").getDouble(nmsEntity);
-				locY = nmsEntity.getClass().getField("locY").getDouble(nmsEntity);
-				locZ = nmsEntity.getClass().getField("locZ").getDouble(nmsEntity);
+
+				try {
+					locX = new ReflectedField<>("locX", false, false, this);
+					locY = new ReflectedField<>("locY", false, false, this);
+					locZ = new ReflectedField<>("locZ", false, false, this);
+				}
+				catch (FieldReflectionExcpetion e) {
+					e.printStackTrace();
+				}
+
 			}
-			catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			catch (IllegalArgumentException | SecurityException e) {
 				throw (new IllegalArgumentException(nmsEntity.toString() + " does not the correct data"));
 			}
 
@@ -109,8 +124,27 @@ public class NMSEntityReflection extends NMSObjectReflection {
 		HashMap<String, Object> values = new HashMap<>();
 		values.put("type", nmsObject.getClass());
 		values.put("entity", this.nmsObject);
-		values.put("location", ImmutableMap.of("x", locX, "y", locY, "z", locZ));
+
+		try {
+			values.put("location", ImmutableMap.of("x", locX.get(), "y", locY.get(), "z", locZ.get()));
+		}
+		catch (FieldReflectionExcpetion e) {
+			e.printStackTrace();
+		}
+
 		return "EntityReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("Entity");
+
+	public static NMSEntityReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSEntityReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSEntityReflection");
 
 	}
 

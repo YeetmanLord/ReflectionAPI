@@ -2,10 +2,11 @@ package com.github.yeetmanlord.reflection_api.packets.player;
 
 import java.util.HashMap;
 
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 
 public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
@@ -45,6 +46,24 @@ public class NMSPlayerInfoPacketReflection extends NMSPacketReflection {
 		}
 
 		return null;
+
+	}
+
+	public NMSPlayerInfoPacketReflection(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("PacketPlayOutPlayerInfo");
+
+	public static NMSPlayerInfoPacketReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSPlayerInfoPacketReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPlayerInfoPacketReflection");
 
 	}
 

@@ -1,5 +1,6 @@
 package com.github.yeetmanlord.reflection_api.mappings;
 
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.types.ArguementMethodMapping;
 import com.github.yeetmanlord.reflection_api.mappings.types.ArguementlessMethodMapping;
 import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;

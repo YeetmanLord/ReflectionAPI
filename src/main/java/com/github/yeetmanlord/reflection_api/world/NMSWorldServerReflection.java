@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.World;
-
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.entity.NMSEntityReflection;
@@ -120,6 +119,18 @@ public class NMSWorldServerReflection extends NMSObjectReflection {
 		values.put("worldServer", nmsObject);
 		values.put("server", server.toString());
 		return "WorldServerReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("WorldServer");
+
+	public static NMSWorldServerReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSWorldServerReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSWorldServerReflection");
 
 	}
 

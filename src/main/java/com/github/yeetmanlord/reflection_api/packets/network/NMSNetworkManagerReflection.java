@@ -5,7 +5,6 @@ import java.lang.reflect.Constructor;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
-
 import io.netty.channel.Channel;
 
 public class NMSNetworkManagerReflection extends NMSObjectReflection {
@@ -31,7 +30,7 @@ public class NMSNetworkManagerReflection extends NMSObjectReflection {
 		try {
 			Class<?> enumProtocolDirection = ReflectionApi.getNMSClass("EnumProtocolDirection");
 			Object direction = enumProtocolDirection.getField(value.toUpperCase()).get(null);
-			Constructor<?> managerConstructor = ReflectionApi.getNMSClass("NetworkManager").getConstructor(enumProtocolDirection);
+			Constructor<?> managerConstructor = staticClass.getConstructor(enumProtocolDirection);
 			return managerConstructor.newInstance(direction);
 		}
 		catch (Exception e) {
@@ -59,6 +58,19 @@ public class NMSNetworkManagerReflection extends NMSObjectReflection {
 			e.printStackTrace();
 			return null;
 		}
+
+	}
+
+
+	private static Class<?> staticClass = ReflectionApi.getNMSClass("NetworkManager");
+
+	public static NMSNetworkManagerReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSNetworkManagerReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSNetworkManagerReflection");
 
 	}
 

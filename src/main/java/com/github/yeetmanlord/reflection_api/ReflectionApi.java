@@ -9,8 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.yeetmanlord.reflection_api.exceptions.IllegalVersionException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 
@@ -19,22 +20,6 @@ public class ReflectionApi extends JavaPlugin {
 	public static final VersionRange supportedVersions = new VersionRange("1.8", "1.19");
 
 	public static ReflectionApi instance;
-
-	public class IllegalVersionException extends Exception {
-
-		private static final long serialVersionUID = 6794071921978043326L;
-
-		public IllegalVersionException() {
-
-		}
-
-		public IllegalVersionException(String string) {
-
-			super(string);
-
-		}
-
-	}
 
 	private static Version getVersion() {
 

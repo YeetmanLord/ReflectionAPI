@@ -7,6 +7,8 @@ import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
 public class NMSChatComponentTextReflection extends NMSObjectReflection {
 
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("ChatComponentText");
+
 	public NMSChatComponentTextReflection(String text) {
 
 		super(init(text));
@@ -22,7 +24,7 @@ public class NMSChatComponentTextReflection extends NMSObjectReflection {
 	private static Object init(String text) {
 
 		try {
-			Constructor<?> constr = ReflectionApi.getNMSClass("ChatComponentText").getConstructor(String.class);
+			Constructor<?> constr = staticClass.getConstructor(String.class);
 			return constr.newInstance(text);
 		}
 		catch (Exception e) {
@@ -36,6 +38,16 @@ public class NMSChatComponentTextReflection extends NMSObjectReflection {
 	public Object getComponent() {
 
 		return nmsObject;
+
+	}
+
+	public static NMSChatComponentTextReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSChatComponentTextReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSChatComponentTextReflection");
 
 	}
 

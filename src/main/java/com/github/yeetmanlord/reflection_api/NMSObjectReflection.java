@@ -9,12 +9,13 @@ import java.util.HashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;
 
 public class NMSObjectReflection {
 
 	protected Object nmsObject;
+	
 
 	public NMSObjectReflection(Object nmsObject) {
 
@@ -37,6 +38,7 @@ public class NMSObjectReflection {
 
 		try {
 			this.nmsObject = bukkitObject.getClass().getMethod(methodName).invoke(bukkitObject);
+			
 		}
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
 			e.printStackTrace();
@@ -59,6 +61,7 @@ public class NMSObjectReflection {
 			try {
 				constr = ReflectionApi.getNMSClass(className).getConstructor();
 				this.nmsObject = constr.newInstance();
+				
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -72,6 +75,7 @@ public class NMSObjectReflection {
 				try {
 					constr = ReflectionApi.getNMSClass(className).getConstructor(classes);
 					this.nmsObject = constr.newInstance(args);
+					
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -95,6 +99,7 @@ public class NMSObjectReflection {
 				try {
 					constr = ReflectionApi.getNMSClass(className).getConstructor();
 					this.nmsObject = constr.newInstance();
+					
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -108,6 +113,7 @@ public class NMSObjectReflection {
 					try {
 						constr = ReflectionApi.getNMSClass(className).getConstructor(classes);
 						this.nmsObject = constr.newInstance(args);
+						
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -144,7 +150,7 @@ public class NMSObjectReflection {
 			e.printStackTrace();
 		}
 		catch (NoSuchFieldException e) {
-			throw (new NoSuchFieldException(fieldName + " is not a field in " + nmsObject.getClass()));
+			throw (new NoSuchFieldException(fieldName + " is not a field in " + this.nmsObject.getClass()));
 		}
 
 		return null;
@@ -154,6 +160,9 @@ public class NMSObjectReflection {
 	/**
 	 * Runs a method and returns the return value of that method If the method is a
 	 * void method will return null
+	 * 
+	 * @apiNote I do not believe that you can use this method to run final methods
+	 *          because to my tests it does not work
 	 * 
 	 * @param methodName  The method to invoke
 	 * @param argsClasses The classes of the arguments in the method in order.
@@ -184,7 +193,7 @@ public class NMSObjectReflection {
 			e.printStackTrace();
 		}
 		catch (NoSuchMethodException e) {
-			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass() + " check that the parameter classes and method name are correct."));
+			throw (new NoSuchMethodException(methodName + " is not a real method in " + this.nmsObject.getClass() + " check that the parameter classes and method name are correct."));
 		}
 
 		return null;
@@ -193,6 +202,9 @@ public class NMSObjectReflection {
 
 	/**
 	 * Runs a method from this reflection's associated NMS object
+	 * 
+	 * @apiNote I do not believe that you can use this method to run final methods
+	 *          because to my tests it does not work
 	 * 
 	 * @param methodName methodName The method to invoke
 	 * @return The output of the method or null if it is a void method
@@ -221,7 +233,7 @@ public class NMSObjectReflection {
 			e.printStackTrace();
 		}
 		catch (NoSuchMethodException e) {
-			throw (new NoSuchMethodException(methodName + " is not a real method in " + nmsObject.getClass()));
+			throw (new NoSuchMethodException(methodName + " is not a real method in " + this.nmsObject.getClass()));
 		}
 
 		return null;
@@ -237,7 +249,7 @@ public class NMSObjectReflection {
 	public Field getField(String fieldName) throws NoSuchFieldException {
 
 		try {
-			return nmsObject.getClass().getDeclaredField(fieldName);
+			return this.nmsObject.getClass().getDeclaredField(fieldName);
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
@@ -245,10 +257,10 @@ public class NMSObjectReflection {
 		catch (NoSuchFieldException e) {
 
 			try {
-				return nmsObject.getClass().getField(fieldName);
+				return this.nmsObject.getClass().getField(fieldName);
 			}
 			catch (NoSuchFieldException ex) {
-				throw (new NoSuchFieldException(fieldName + " is not a field in " + nmsObject.getClass()));
+				throw (new NoSuchFieldException(fieldName + " is not a field in " + this.nmsObject.getClass()));
 			}
 
 		}
@@ -267,7 +279,7 @@ public class NMSObjectReflection {
 	public Method getMethod(String methodName) throws NoSuchMethodException {
 
 		try {
-			return nmsObject.getClass().getDeclaredMethod(methodName);
+			return this.nmsObject.getClass().getDeclaredMethod(methodName);
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
@@ -275,10 +287,10 @@ public class NMSObjectReflection {
 		catch (NoSuchMethodException e) {
 
 			try {
-				return nmsObject.getClass().getMethod(methodName);
+				return this.nmsObject.getClass().getMethod(methodName);
 			}
 			catch (NoSuchMethodException ex) {
-				throw (new NoSuchMethodException(methodName + " is not a method in " + nmsObject.getClass()));
+				throw (new NoSuchMethodException(methodName + " is not a method in " + this.nmsObject.getClass()));
 			}
 
 		}
@@ -297,7 +309,7 @@ public class NMSObjectReflection {
 	public Method getMethod(String methodName, Class<?>[] classes) throws NoSuchMethodException {
 
 		try {
-			return nmsObject.getClass().getDeclaredMethod(methodName, classes);
+			return this.nmsObject.getClass().getDeclaredMethod(methodName, classes);
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
@@ -305,10 +317,10 @@ public class NMSObjectReflection {
 		catch (NoSuchMethodException e) {
 
 			try {
-				return nmsObject.getClass().getMethod(methodName, classes);
+				return this.nmsObject.getClass().getMethod(methodName, classes);
 			}
 			catch (NoSuchMethodException ex) {
-				throw (new NoSuchMethodException(methodName + " is not a method in " + nmsObject.getClass()));
+				throw (new NoSuchMethodException(methodName + " is not a method in " + this.nmsObject.getClass()));
 			}
 
 		}
@@ -330,10 +342,12 @@ public class NMSObjectReflection {
 	public String toString() {
 
 		HashMap<String, Object> values = new HashMap<>();
-		values.put("type", nmsObject.getClass());
+		values.put("type", this.nmsObject.getClass());
 		values.put("object", nmsObject);
 		return "ObjectReflection" + values.toString();
 
 	}
+	
+	
 
 }

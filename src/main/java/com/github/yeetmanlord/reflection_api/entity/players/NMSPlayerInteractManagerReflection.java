@@ -29,7 +29,7 @@ public class NMSPlayerInteractManagerReflection extends NMSObjectReflection {
 	public static Object instance(NMSWorldServerReflection worldServer) {
 
 		try {
-			Constructor<?> managerConstructor = ReflectionApi.getNMSClass("PlayerInteractManager").getConstructor(worldServer.getNmsWorldServer().getClass().getSuperclass());
+			Constructor<?> managerConstructor = staticClass.getConstructor(worldServer.getNmsWorldServer().getClass().getSuperclass());
 			return managerConstructor.newInstance(ReflectionApi.getNMSClass("World").cast(worldServer.getNmsWorldServer()));
 		}
 		catch (Exception e) {
@@ -37,6 +37,18 @@ public class NMSPlayerInteractManagerReflection extends NMSObjectReflection {
 		}
 
 		return null;
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("PlayerInteractManager");
+
+	public static NMSPlayerInteractManagerReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSPlayerInteractManagerReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPlayerInteractManagerReflection");
 
 	}
 

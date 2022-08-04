@@ -5,11 +5,11 @@ import java.util.Map;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
-import com.github.yeetmanlord.reflection_api.mappings.Mapping;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
+import com.github.yeetmanlord.reflection_api.mappings.IMapping;
 import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 
-public class ArguementlessMethodMapping<ReturnType> implements Mapping<String> {
+public class ArguementlessMethodMapping<ReturnType> implements IMapping<String> {
 
 	public Class<? extends NMSObjectReflection> reflectionType;
 

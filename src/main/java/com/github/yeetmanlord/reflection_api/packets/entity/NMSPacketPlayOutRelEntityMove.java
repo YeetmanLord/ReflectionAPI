@@ -1,8 +1,14 @@
 package com.github.yeetmanlord.reflection_api.packets.entity;
 
+import org.bukkit.Bukkit;
+
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class NMSPacketPlayOutRelEntityMove extends NMSPacketReflection {
 
@@ -37,6 +43,41 @@ public class NMSPacketPlayOutRelEntityMove extends NMSPacketReflection {
 		args[6] = bool;
 
 		return args;
+
+	}
+
+	public NMSPacketPlayOutRelEntityMove(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
+
+	private static Class<?> staticClass;
+
+	static {
+
+		try {
+			staticClass = Mappings.PACKET_PLAY_OUT_REL_ENTITY_MOVE_LOOK_CLASS_MAPPING.getNMSClassMapping();
+		}
+		catch (MappingsException exc) {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "ERROR! Could not load mapping PACKET_PLAY_OUT_REL_ENTITY_MOVE_LOOK_CLASS_MAPPING");
+			exc.printStackTrace();
+		}
+
+	}
+
+	public static NMSPacketPlayOutRelEntityMove cast(NMSObjectReflection refl) throws MappingsException {
+
+		if (staticClass != null) {
+
+			if (staticClass.isInstance(refl.getNmsObject())) {
+				return new NMSPacketPlayOutRelEntityMove(refl.getNmsObject());
+			}
+
+			throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPacketPlayOutRelEntityMove");
+		}
+
+		throw new MappingsException(Mappings.PACKET_PLAY_OUT_REL_ENTITY_MOVE_LOOK_CLASS_MAPPING, "PACKET_PLAY_OUT_REL_ENTITY_MOVE_LOOK_CLASS_MAPPING was not loaded properly meaning that this interaction has failed!");
 
 	}
 

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public interface Mapping<Type> {
+public interface IMapping<Type> {
 
 	/**
 	 * @return Returns the internal name of a mapping

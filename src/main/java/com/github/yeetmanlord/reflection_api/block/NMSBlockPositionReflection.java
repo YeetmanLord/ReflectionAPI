@@ -8,23 +8,31 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectedField;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 import com.google.common.collect.ImmutableMap;
 
 public class NMSBlockPositionReflection extends NMSObjectReflection {
 
-	public double x;
+	public ReflectedField<Double> x;
 
-	public double y;
+	public ReflectedField<Double> y;
 
-	public double z;
+	public ReflectedField<Double> z;
 
 	public NMSBlockPositionReflection(double x, double y, double z) {
 
 		super(init(x, y, z));
-		this.x = x;
-		this.y = y;
-		this.z = z;
+
+		try {
+			this.x = new ReflectedField<>(getField("a"), true, false, this);
+			this.y = new ReflectedField<>(getField("b"), true, false, this);
+			this.z = new ReflectedField<>(getField("c"), true, false, this);
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
 
 	}
 
@@ -32,12 +40,21 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 
 		super(blockPosistion);
 
+		try {
+			this.x = new ReflectedField<>(getField("a"), true, false, this);
+			this.y = new ReflectedField<>(getField("b"), true, false, this);
+			this.z = new ReflectedField<>(getField("c"), true, false, this);
+		}
+		catch (Exception exc) {
+			exc.printStackTrace();
+		}
+
 	}
 
 	private static Object init(double x, double y, double z) {
 
 		try {
-			Constructor<?> constr = ReflectionApi.getNMSClass("BlockPosition").getConstructor(double.class, double.class, double.class);
+			Constructor<?> constr = staticClass.getConstructor(double.class, double.class, double.class);
 			return constr.newInstance(x, y, z);
 		}
 		catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -73,7 +90,14 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 
 	public NMSBlockPositionReflection add(NMSBlockPositionReflection blockPosition) {
 
-		return add(this.x, this.y, this.z);
+		try {
+			return add(blockPosition.x.get(), blockPosition.y.get(), blockPosition.z.get());
+		}
+		catch (FieldReflectionExcpetion e) {
+			e.printStackTrace();
+		}
+
+		return null;
 
 	}
 
@@ -85,6 +109,18 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 		values.put("object", this.nmsObject);
 		values.put("location", ImmutableMap.of("x", x, "y", y, "z", z));
 		return "BlockPosReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("BlockPosition");
+
+	public static NMSBlockPositionReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSBlockPositionReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSBlockPositionReflection");
 
 	}
 

@@ -1,7 +1,7 @@
 package com.github.yeetmanlord.reflection_api.mappings;
 
 import com.github.yeetmanlord.reflection_api.Version;
-import com.github.yeetmanlord.reflection_api.Version.VersionFormatException;
+import com.github.yeetmanlord.reflection_api.exceptions.VersionFormatException;
 
 public class VersionRange {
 

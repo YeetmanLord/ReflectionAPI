@@ -9,8 +9,8 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
 
 public class NMSScoreboardTeamReflection extends NMSObjectReflection {
 
@@ -234,6 +234,18 @@ public class NMSScoreboardTeamReflection extends NMSObjectReflection {
 		values.put("suffix", getSuffix());
 		values.put("allowsFriendlyFire", allowFriendlyFire());
 		return "ScoreboardTeamReflection" + values.toString();
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("ScoreboardTeam");
+
+	public static NMSScoreboardTeamReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSScoreboardTeamReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSScoreboardTeamReflection");
 
 	}
 

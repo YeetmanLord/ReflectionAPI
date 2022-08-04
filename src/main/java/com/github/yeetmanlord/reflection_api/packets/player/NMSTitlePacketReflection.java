@@ -2,6 +2,7 @@ package com.github.yeetmanlord.reflection_api.packets.player;
 
 import java.util.HashMap;
 
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.chat_components.NMSChatComponentTextReflection;
 import com.github.yeetmanlord.reflection_api.chat_components.NMSChatSerializerReflection;
@@ -81,9 +82,29 @@ public class NMSTitlePacketReflection extends NMSPacketReflection {
 		return null;
 
 	}
-	
+
 	public static NMSTitlePacketReflection clear() {
+
 		return new NMSTitlePacketReflection("CLEAR", ReflectionApi.getNMSClass("IChatBaseComponent").cast(null));
+
 	}
-	
+
+	public NMSTitlePacketReflection(Object nmsObject) {
+
+		super(nmsObject);
+
+	}
+
+	public static final Class<?> staticClass = ReflectionApi.getNMSClass("PacketPlayOutTitle");
+
+	public static NMSTitlePacketReflection cast(NMSObjectReflection refl) {
+
+		if (staticClass.isInstance(refl.getNmsObject())) {
+			return new NMSTitlePacketReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSTitlePacketReflection");
+
+	}
+
 }

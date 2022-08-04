@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
-import com.github.yeetmanlord.reflection_api.mappings.MappingsException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.types.ClassNameMapping;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityDestroyPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.entity.NMSEntityPacketReflection;
@@ -20,6 +20,14 @@ public class NMSPacketReflection extends NMSObjectReflection {
 	private Object nmsPacket;
 
 	private String name;
+
+	public NMSPacketReflection(Object nmsPacket) {
+
+		super(nmsPacket);
+		this.name = nmsPacket.getClass().getName();
+		this.nmsPacket = nmsPacket;
+
+	}
 
 	private static HashMap<Class<?>, Class<?>> natives = new HashMap<>();
 
@@ -196,6 +204,18 @@ public class NMSPacketReflection extends NMSObjectReflection {
 		values.put("packet", nmsPacket);
 		values.put("packetName", name);
 		return "PacketReflection" + values.toString();
+
+	}
+
+	public static NMSPacketReflection cast(NMSObjectReflection refl, String packetName) {
+
+		Class<?> clazz = ReflectionApi.getNMSClass(packetName);
+
+		if (clazz.isInstance(refl.getNmsObject())) {
+			return new NMSPacketReflection(refl.getNmsObject());
+		}
+
+		throw new ClassCastException("Cannot cast " + refl.toString() + " to NMSPacketReflection(" + packetName + ")");
 
 	}
 
