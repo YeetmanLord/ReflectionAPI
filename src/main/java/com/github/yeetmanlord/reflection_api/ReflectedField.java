@@ -107,17 +107,19 @@ public class ReflectedField<Type> {
 			if (isPrivate) {
 				field.setAccessible(true);
 			}
-
+			Type value;
 			if (isStatic) {
-				field.get(null);
+				value = (Type) field.get(null);
 			}
 			else {
-				field.get(holder.getNmsObject());
+				value = (Type) field.get(holder.getNmsObject());
 			}
 
 			if (isPrivate) {
 				field.setAccessible(isFinal);
 			}
+
+			return value;
 
 		}
 		catch (Exception exc) {
