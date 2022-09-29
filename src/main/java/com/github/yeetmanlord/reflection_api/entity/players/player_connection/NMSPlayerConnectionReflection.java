@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
@@ -87,6 +88,9 @@ public class NMSPlayerConnectionReflection extends NMSObjectReflection {
 			sendPacket.invoke(nmsPlayerConnection, packet.getNmsPacket());
 		}
 		catch (Exception e) {
+			Bukkit.getConsoleSender().sendMessage(packet.getNmsPacket().getClass().toString());
+			Bukkit.getConsoleSender().sendMessage(packet.toString());
+			Bukkit.getConsoleSender().sendMessage(packet.getNmsPacket().toString());
 			e.printStackTrace();
 		}
 

@@ -43,7 +43,7 @@ public class VersionMaterial {
         if (IS_FLAT) {
             return new ItemStack(getMaterial());
         } else {
-            return new ItemStack(getMaterial(), this.data);
+            return new ItemStack(getMaterial(), 1, this.data);
         }
     }
 
@@ -102,12 +102,12 @@ public class VersionMaterial {
     public static final VersionMaterial RED_STAINED_GLASS_PANE = new VersionMaterial("stained_glass_pane", "red_stained_glass_pane", (byte) 14);
     public static final VersionMaterial BLACK_STAINED_GLASS_PANE = new VersionMaterial("stained_glass_pane", "black_stained_glass_pane", (byte) 15);
 
-    public static final VersionMaterial SKELETON_HEAD = new VersionMaterial("skull", "skeleton_head", (byte) 0);
-    public static final VersionMaterial WITHER_SKELETON_HEAD = new VersionMaterial("skull", "wither_skeleton_head", (byte) 1);
-    public static final VersionMaterial ZOMBIE_HEAD = new VersionMaterial("skull", "zombie_head", (byte) 2);
-    public static final VersionMaterial PLAYER_HEAD = new VersionMaterial("skull", "player_head", (byte) 3);
-    public static final VersionMaterial CREEPER_HEAD = new VersionMaterial("skull", "creeper_head", (byte) 4);
-    public static final VersionMaterial DRAGON_HEAD = new VersionMaterial("skull", "dragon_head", (byte) 5);
+    public static final VersionMaterial SKELETON_HEAD = new VersionMaterial("skull_item", "skeleton_head", (byte) 0);
+    public static final VersionMaterial WITHER_SKELETON_HEAD = new VersionMaterial("skull_item", "wither_skeleton_head", (byte) 1);
+    public static final VersionMaterial ZOMBIE_HEAD = new VersionMaterial("skull_item", "zombie_head", (byte) 2);
+    public static final VersionMaterial PLAYER_HEAD = new VersionMaterial("skull_item", "player_head", (byte) 3);
+    public static final VersionMaterial CREEPER_HEAD = new VersionMaterial("skull_item", "creeper_head", (byte) 4);
+    public static final VersionMaterial DRAGON_HEAD = new VersionMaterial("skull_item", "dragon_head", (byte) 5);
 
 
     public static final VersionMaterial WHITE_STAINED_GLASS = new VersionMaterial("stained_glass", "white_stained_glass", (byte) 0);

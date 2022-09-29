@@ -148,4 +148,17 @@ public class NMSEntityReflection extends NMSObjectReflection {
 
 	}
 
+	public NMSAxisAlignedBBReflection getBoundingBox() {
+
+		try {
+			return new NMSAxisAlignedBBReflection(this.invokeMethodForNmsObject("getBoundingBox"));
+		}
+		catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
 }
