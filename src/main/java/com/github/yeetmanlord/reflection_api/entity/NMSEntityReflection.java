@@ -6,7 +6,7 @@ import java.util.HashMap;
 import org.bukkit.entity.Entity;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
-import com.github.yeetmanlord.reflection_api.ReflectedField;
+import com.github.yeetmanlord.reflection_api.util.ReflectedField;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 import com.google.common.collect.ImmutableMap;

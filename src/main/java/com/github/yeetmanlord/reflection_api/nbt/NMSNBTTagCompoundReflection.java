@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 
 public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
 
@@ -22,13 +23,10 @@ public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
 
     private static Object init() {
 
-        Constructor<?> constr;
-
         try {
-            constr = ReflectionApi.getNMSClass("NBTTagCompound").getConstructor();
-            return constr.newInstance();
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException |
-                 IllegalArgumentException | InvocationTargetException e) {
+            return ReflectionApi.getNMSClass("NBTTagCompound").newInstance();
+        } catch (SecurityException | InstantiationException | IllegalAccessException |
+                 IllegalArgumentException e) {
             e.printStackTrace();
             return null;
         }

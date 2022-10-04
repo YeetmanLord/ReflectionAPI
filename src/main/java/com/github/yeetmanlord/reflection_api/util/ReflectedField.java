@@ -1,8 +1,9 @@
-package com.github.yeetmanlord.reflection_api;
+package com.github.yeetmanlord.reflection_api.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 
 public class ReflectedField<Type> {

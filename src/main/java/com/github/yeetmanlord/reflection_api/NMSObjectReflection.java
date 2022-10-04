@@ -249,7 +249,11 @@ public class NMSObjectReflection {
 	public Field getField(String fieldName) throws NoSuchFieldException {
 
 		try {
-			return this.nmsObject.getClass().getDeclaredField(fieldName);
+			Field field = this.nmsObject.getClass().getDeclaredField(fieldName);
+			if (field == null) {
+				throw (new NoSuchFieldException());
+			}
+			return field;
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
@@ -279,7 +283,11 @@ public class NMSObjectReflection {
 	public Method getMethod(String methodName) throws NoSuchMethodException {
 
 		try {
-			return this.nmsObject.getClass().getDeclaredMethod(methodName);
+			Method method = this.nmsObject.getClass().getDeclaredMethod(methodName);
+			if (method == null) {
+				throw (new NoSuchMethodException());
+			}
+			return method;
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
@@ -309,7 +317,11 @@ public class NMSObjectReflection {
 	public Method getMethod(String methodName, Class<?>[] classes) throws NoSuchMethodException {
 
 		try {
-			return this.nmsObject.getClass().getDeclaredMethod(methodName, classes);
+			Method method = this.nmsObject.getClass().getDeclaredMethod(methodName, classes);
+			if (method == null) {
+				throw (new NoSuchMethodException());
+			}
+			return method;
 		}
 		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();

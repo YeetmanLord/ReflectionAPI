@@ -1,11 +1,12 @@
-package com.github.yeetmanlord.reflection_api;
+package com.github.yeetmanlord.reflection_api.inventory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.nbt.NMSNBTTagCompoundReflection;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class NMSItemStackReflection extends NMSObjectReflection {
@@ -74,7 +75,11 @@ public class NMSItemStackReflection extends NMSObjectReflection {
 
     public NMSNBTTagCompoundReflection getTag() {
         try {
-            return new NMSNBTTagCompoundReflection(invokeMethodForNmsObject("getTag"));
+            Object o = invokeMethodForNmsObject("getTag");
+            if (o == null) {
+                return new NMSNBTTagCompoundReflection();
+            }
+            return new NMSNBTTagCompoundReflection(o);
         } catch (NoSuchMethodException exc) {
             exc.printStackTrace();
         }

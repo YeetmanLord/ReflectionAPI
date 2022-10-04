@@ -1,5 +1,6 @@
-package com.github.yeetmanlord.reflection_api;
+package com.github.yeetmanlord.reflection_api.util;
 
+import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -190,4 +191,6 @@ public class VersionMaterial {
 
     public static final VersionMaterial CLOCK = new VersionMaterial("watch", "clock", (byte) 0);
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
+
+    public static final WhiteMonsterEggVersionMaterial WHITE_MONSTER_EGG = new WhiteMonsterEggVersionMaterial();
 }

@@ -1,6 +1,6 @@
 package com.github.yeetmanlord.reflection_api.exceptions;
 
-import com.github.yeetmanlord.reflection_api.ReflectedField;
+import com.github.yeetmanlord.reflection_api.util.ReflectedField;
 
 public class FieldReflectionExcpetion extends Exception {
 
