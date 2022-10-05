@@ -4,9 +4,13 @@ import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class VersionMaterial {
+
+    public static final List<Material> PHYSICAL_MATERIALS = getPhysicsAffectMaterials();
 
     public static final HashMap<String, VersionMaterial> stringMaterialMap = new HashMap<>();
     public static final boolean IS_FLAT = ReflectionApi.version.isNewer("1.13");
@@ -193,4 +197,14 @@ public class VersionMaterial {
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
 
     public static final WhiteMonsterEggVersionMaterial WHITE_MONSTER_EGG = new WhiteMonsterEggVersionMaterial();
+
+
+    public static List<Material> getPhysicsAffectMaterials() {
+        List<Material> materials = new ArrayList<>();
+        for (Material material : Material.values()) {
+            material.hasGravity();
+        }
+
+        return materials;
+    }
 }
