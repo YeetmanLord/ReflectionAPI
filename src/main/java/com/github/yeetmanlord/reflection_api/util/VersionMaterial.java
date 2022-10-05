@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class VersionMaterial {
-
-    public static final List<Material> PHYSICAL_MATERIALS = getPhysicsAffectMaterials();
-
     public static final HashMap<String, VersionMaterial> stringMaterialMap = new HashMap<>();
     public static final boolean IS_FLAT = ReflectionApi.version.isNewer("1.13");
     private String legacyMaterial, flatMaterial;
@@ -175,36 +172,26 @@ public class VersionMaterial {
     public static final VersionMaterial COMMAND_BLOCK = new VersionMaterial("command", "command_block", (byte) 0);
     public static final VersionMaterial REPEATING_COMMAND_BLOCK = new VersionMaterial("command", "repeating_command_block", (byte) 0);
     public static final VersionMaterial CHAIN_COMMAND_BLOCK = new VersionMaterial("command", "chain_command_block", (byte) 0);
-
-    public static final VersionMaterial WHITE_TERRACOTTA = new VersionMaterial("hardened_clay", "white_terracotta", (byte) 0);
-    public static final VersionMaterial ORANGE_TERRACOTTA = new VersionMaterial("hardened_clay", "orange_terracotta", (byte) 1);
-    public static final VersionMaterial MAGENTA_TERRACOTTA = new VersionMaterial("hardened_clay", "magenta_terracotta", (byte) 2);
-    public static final VersionMaterial LIGHT_BLUE_TERRACOTTA = new VersionMaterial("hardened_clay", "light_blue_terracotta", (byte) 3);
-    public static final VersionMaterial YELLOW_TERRACOTTA = new VersionMaterial("hardened_clay", "yellow_terracotta", (byte) 4);
-    public static final VersionMaterial LIME_TERRACOTTA = new VersionMaterial("hardened_clay", "lime_terracotta", (byte) 5);
-    public static final VersionMaterial PINK_TERRACOTTA = new VersionMaterial("hardened_clay", "pink_terracotta", (byte) 6);
-    public static final VersionMaterial GRAY_TERRACOTTA = new VersionMaterial("hardened_clay", "gray_terracotta", (byte) 7);
-    public static final VersionMaterial LIGHT_GRAY_TERRACOTTA = new VersionMaterial("hardened_clay", "light_gray_terracotta", (byte) 8);
-    public static final VersionMaterial CYAN_TERRACOTTA = new VersionMaterial("hardened_clay", "cyan_terracotta", (byte) 9);
-    public static final VersionMaterial PURPLE_TERRACOTTA = new VersionMaterial("hardened_clay", "purple_terracotta", (byte) 10);
-    public static final VersionMaterial BLUE_TERRACOTTA = new VersionMaterial("hardened_clay", "blue_terracotta", (byte) 11);
-    public static final VersionMaterial BROWN_TERRACOTTA = new VersionMaterial("hardened_clay", "brown_terracotta", (byte) 12);
-    public static final VersionMaterial GREEN_TERRACOTTA = new VersionMaterial("hardened_clay", "green_terracotta", (byte) 13);
-    public static final VersionMaterial RED_TERRACOTTA = new VersionMaterial("hardened_clay", "red_terracotta", (byte) 14);
-    public static final VersionMaterial BLACK_TERRACOTTA = new VersionMaterial("hardened_clay", "black_terracotta", (byte) 15);
-
+    public static final VersionMaterial WHITE_TERRACOTTA = new VersionMaterial("stained_clay", "white_terracotta", (byte) 0);
+    public static final VersionMaterial ORANGE_TERRACOTTA = new VersionMaterial("stained_clay", "orange_terracotta", (byte) 1);
+    public static final VersionMaterial MAGENTA_TERRACOTTA = new VersionMaterial("stained_clay", "magenta_terracotta", (byte) 2);
+    public static final VersionMaterial LIGHT_BLUE_TERRACOTTA = new VersionMaterial("stained_clay", "light_blue_terracotta", (byte) 3);
+    public static final VersionMaterial YELLOW_TERRACOTTA = new VersionMaterial("stained_clay", "yellow_terracotta", (byte) 4);
+    public static final VersionMaterial LIME_TERRACOTTA = new VersionMaterial("stained_clay", "lime_terracotta", (byte) 5);
+    public static final VersionMaterial PINK_TERRACOTTA = new VersionMaterial("stained_clay", "pink_terracotta", (byte) 6);
+    public static final VersionMaterial GRAY_TERRACOTTA = new VersionMaterial("stained_clay", "gray_terracotta", (byte) 7);
+    public static final VersionMaterial LIGHT_GRAY_TERRACOTTA = new VersionMaterial("stained_clay", "light_gray_terracotta", (byte) 8);
+    public static final VersionMaterial CYAN_TERRACOTTA = new VersionMaterial("stained_clay", "cyan_terracotta", (byte) 9);
+    public static final VersionMaterial PURPLE_TERRACOTTA = new VersionMaterial("stained_clay", "purple_terracotta", (byte) 10);
+    public static final VersionMaterial BLUE_TERRACOTTA = new VersionMaterial("stained_clay", "blue_terracotta", (byte) 11);
+    public static final VersionMaterial BROWN_TERRACOTTA = new VersionMaterial("stained_clay", "brown_terracotta", (byte) 12);
+    public static final VersionMaterial GREEN_TERRACOTTA = new VersionMaterial("stained_clay", "green_terracotta", (byte) 13);
+    public static final VersionMaterial RED_TERRACOTTA = new VersionMaterial("stained_clay", "red_terracotta", (byte) 14);
+    public static final VersionMaterial BLACK_TERRACOTTA = new VersionMaterial("stained_clay", "black_terracotta", (byte) 15);
+    public static final VersionMaterial TERRACOTTA = new VersionMaterial("hard_clay", "terracotta", (byte) 0);
+    
     public static final VersionMaterial CLOCK = new VersionMaterial("watch", "clock", (byte) 0);
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
 
     public static final WhiteMonsterEggVersionMaterial WHITE_MONSTER_EGG = new WhiteMonsterEggVersionMaterial();
-
-
-    public static List<Material> getPhysicsAffectMaterials() {
-        List<Material> materials = new ArrayList<>();
-        for (Material material : Material.values()) {
-            material.hasGravity();
-        }
-
-        return materials;
-    }
 }

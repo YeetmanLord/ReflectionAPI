@@ -71,7 +71,12 @@ public class ReflectedField<Type> {
 			if (isStatic) {
 
 				if (nmsObject) {
-					field.set(null, ((NMSObjectReflection) value).getNmsObject());
+					if (value == null) {
+						field.set(null, null);
+					}
+					else {
+						field.set(null, ((NMSObjectReflection) value).getNmsObject());
+					}
 				}
 				else {
 					field.set(null, value);
@@ -81,7 +86,12 @@ public class ReflectedField<Type> {
 			else {
 
 				if (nmsObject) {
-					field.set(holder.getNmsObject(), ((NMSObjectReflection) value).getNmsObject());
+					if (value == null) {
+						field.set(holder.getNmsObject(), null);
+					}
+					else {
+						field.set(holder.getNmsObject(), ((NMSObjectReflection) value).getNmsObject());
+					}
 				}
 				else {
 					field.set(holder.getNmsObject(), value);

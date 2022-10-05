@@ -1,5 +1,0 @@
-name: ReflectionAPI
-version: 1.0
-author: YeetManLord
-main: com.github.yeetmanlord.reflection_api.ReflectionApi
-description: A simple api for handling spigot nms reflection.

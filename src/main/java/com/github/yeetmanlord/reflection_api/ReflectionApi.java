@@ -15,11 +15,9 @@ import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 
-public class ReflectionApi extends JavaPlugin {
+public class ReflectionApi {
 
-	public static final VersionRange supportedVersions = new VersionRange("1.8", "1.19");
-
-	public static ReflectionApi instance;
+	public static final VersionRange SUPPORTED_VERSIONS = new VersionRange("1.8", "1.19");
 
 	private static Version getVersion() {
 
@@ -37,10 +35,7 @@ public class ReflectionApi extends JavaPlugin {
 
 	public static Version version;
 
-	@Override
-	public void onEnable() {
-
-		instance = this;
+	public static void init(JavaPlugin plugin) {
 
 		version = getVersion();
 
@@ -54,7 +49,7 @@ public class ReflectionApi extends JavaPlugin {
 		catch (IllegalVersionException versionException) {
 			versionException.printStackTrace();
 			Bukkit.getConsoleSender().sendMessage((ChatColor.DARK_RED + "FATAL ERROR: Cannot find the version for this server. Likely means this plugin is broken!!"));
-			this.getServer().getPluginManager().disablePlugin(this);
+			Bukkit.getPluginManager().disablePlugin(plugin);
 		}
 
 		try {
@@ -66,7 +61,9 @@ public class ReflectionApi extends JavaPlugin {
 			Bukkit.getConsoleSender().sendMessage((ChatColor.DARK_RED + "ERROR: " + ChatColor.RED + "Could not properly load mappings. Because of this I do not recommend using this plugin on your current version because it could easily lead to errors."));
 
 		}
-
+		if (!SUPPORTED_VERSIONS.isWithinRange(version)) {
+			Bukkit.getConsoleSender().sendMessage((ChatColor.YELLOW + "[WARNING] The server version you are using is not supported! This means that this plugin may not work properly."));
+		}
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[ReflectionAPI] Running on server version &2" + version));
 
 	}
