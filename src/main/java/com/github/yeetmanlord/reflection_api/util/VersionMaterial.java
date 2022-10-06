@@ -1,6 +1,7 @@
 package com.github.yeetmanlord.reflection_api.util;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -189,9 +190,92 @@ public class VersionMaterial {
     public static final VersionMaterial RED_TERRACOTTA = new VersionMaterial("stained_clay", "red_terracotta", (byte) 14);
     public static final VersionMaterial BLACK_TERRACOTTA = new VersionMaterial("stained_clay", "black_terracotta", (byte) 15);
     public static final VersionMaterial TERRACOTTA = new VersionMaterial("hard_clay", "terracotta", (byte) 0);
-    
+
     public static final VersionMaterial CLOCK = new VersionMaterial("watch", "clock", (byte) 0);
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
 
     public static final WhiteMonsterEggVersionMaterial WHITE_MONSTER_EGG = new WhiteMonsterEggVersionMaterial();
+
+    public static VersionMaterial getWool(DyeColor color) {
+        switch (color) {
+            case WHITE:
+                return WHITE_WOOL;
+            case ORANGE:
+                return ORANGE_WOOL;
+            case MAGENTA:
+                return MAGENTA_WOOL;
+            case LIGHT_BLUE:
+                return LIGHT_BLUE_WOOL;
+            case YELLOW:
+                return YELLOW_WOOL;
+            case LIME:
+                return LIME_WOOL;
+            case PINK:
+                return PINK_WOOL;
+            case GRAY:
+                return GRAY_WOOL;
+            case SILVER:
+                return LIGHT_GRAY_WOOL;
+            case CYAN:
+                return CYAN_WOOL;
+            case PURPLE:
+                return PURPLE_WOOL;
+            case BLUE:
+                return BLUE_WOOL;
+            case BROWN:
+                return BROWN_WOOL;
+            case GREEN:
+                return GREEN_WOOL;
+            case RED:
+                return RED_WOOL;
+            case BLACK:
+                return BLACK_WOOL;
+            default:
+                throw new IllegalArgumentException("Unknown color " + color);
+        }
+    }
+
+    public static VersionMaterial getBed(DyeColor color) {
+        if (ReflectionApi.version.isNewer("1.12")) {
+            switch (color) {
+                case WHITE:
+                    return WHITE_BED;
+                case ORANGE:
+                    return ORANGE_BED;
+                case MAGENTA:
+                    return MAGENTA_BED;
+                case LIGHT_BLUE:
+                    return LIGHT_BLUE_BED;
+                case YELLOW:
+                    return YELLOW_BED;
+                case LIME:
+                    return LIME_BED;
+                case PINK:
+                    return PINK_BED;
+                case GRAY:
+                    return GRAY_BED;
+                case SILVER:
+                    return LIGHT_GRAY_BED;
+                case CYAN:
+                    return CYAN_BED;
+                case PURPLE:
+                    return PURPLE_BED;
+                case BLUE:
+                    return BLUE_BED;
+                case BROWN:
+                    return BROWN_BED;
+                case GREEN:
+                    return GREEN_BED;
+                case RED:
+                    return RED_BED;
+                case BLACK:
+                    return BLACK_BED;
+                default:
+                    throw new IllegalArgumentException("Unknown color " + color);
+            }
+        }
+        else {
+            return WHITE_BED;
+        }
+    }
 }
