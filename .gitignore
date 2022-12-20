@@ -6,3 +6,5 @@ bin
 .progect
 *.txt
 .mvn
+doc
+*.html
