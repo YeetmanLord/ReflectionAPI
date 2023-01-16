@@ -2,7 +2,6 @@ package com.github.yeetmanlord.reflection_api.mappings;
 
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.Version;
-import com.github.yeetmanlord.reflection_api.chat_components.NMSChatComponentTextReflection;
 import com.github.yeetmanlord.reflection_api.entity.NMSDataWatcherReflection;
 import com.github.yeetmanlord.reflection_api.entity.NMSEntityReflection;
 import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
