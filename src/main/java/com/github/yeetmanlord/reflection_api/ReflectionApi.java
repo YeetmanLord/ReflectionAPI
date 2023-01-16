@@ -1,19 +1,17 @@
 package com.github.yeetmanlord.reflection_api;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.github.yeetmanlord.reflection_api.block.NMSBlockPositionReflection;
 import com.github.yeetmanlord.reflection_api.chat_components.NMSChatSerializerReflection;
 import com.github.yeetmanlord.reflection_api.entity.NMSAxisAlignedBBReflection;
 import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerInteractManagerReflection;
 import com.github.yeetmanlord.reflection_api.entity.players.NMSPlayerReflection;
 import com.github.yeetmanlord.reflection_api.entity.players.player_connection.NMSPlayerConnectionReflection;
+import com.github.yeetmanlord.reflection_api.exceptions.IllegalVersionException;
+import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.inventory.NMSItemStackReflection;
 import com.github.yeetmanlord.reflection_api.mappings.IMapping;
+import com.github.yeetmanlord.reflection_api.mappings.Mappings;
+import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 import com.github.yeetmanlord.reflection_api.mappings.types.PackageMapping;
 import com.github.yeetmanlord.reflection_api.nbt.NMSNBTTagCompoundReflection;
 import com.github.yeetmanlord.reflection_api.packets.chat.NMSChatPacketReflection;
@@ -26,6 +24,7 @@ import com.github.yeetmanlord.reflection_api.packets.player.NMSPlayerInfoPacketR
 import com.github.yeetmanlord.reflection_api.packets.player.NMSScoreboardTeamPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.player.NMSTitlePacketReflection;
 import com.github.yeetmanlord.reflection_api.scoreboard.NMSScoreboardTeamReflection;
+import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 import com.github.yeetmanlord.reflection_api.util.EnumEquipmentSlot;
 import com.github.yeetmanlord.reflection_api.util.ParticleUtility;
 import com.github.yeetmanlord.reflection_api.util.VersionMaterial;
@@ -38,11 +37,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.yeetmanlord.reflection_api.exceptions.IllegalVersionException;
-import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
-import com.github.yeetmanlord.reflection_api.mappings.Mappings;
-import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
-import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class ReflectionApi {
 
