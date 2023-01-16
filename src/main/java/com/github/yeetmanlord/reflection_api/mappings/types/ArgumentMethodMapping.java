@@ -1,6 +1,5 @@
 package com.github.yeetmanlord.reflection_api.mappings.types;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -13,7 +12,9 @@ import com.github.yeetmanlord.reflection_api.mappings.VersionRange;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-public class FieldMapping<FieldType, ReflectionType extends NMSObjectReflection> implements IMapping<String> {
+import javax.annotation.Nonnull;
+
+public class ArgumentMethodMapping<ReturnType, ReflectionType extends NMSObjectReflection> implements IMapping<String> {
 
     public Class<ReflectionType> reflectionType;
 
@@ -21,54 +22,65 @@ public class FieldMapping<FieldType, ReflectionType extends NMSObjectReflection>
 
     public String name;
 
-    public FieldMapping(String name, Class<ReflectionType> type, Map<VersionRange, String> mappings) {
+    private Class<?>[] argTypes;
+
+    public ArgumentMethodMapping(String name, Class<ReflectionType> type, Map<VersionRange, String> mappings, Class<?>... argTypes) {
 
         this.reflectionType = type;
         this.mappings = mappings;
+        this.argTypes = argTypes;
         this.name = name;
         Mappings.mappings.add(this);
 
     }
 
-    public void addMapping(VersionRange versionRange, String versionDependentFieldName) {
+    /**
+     * Sets arguement types when the arg is an nms class (which can change)
+     *
+     * @param type The arguments type (class)
+     */
+    public void setArgType(Class<?>... type) {
 
-        this.mappings.put(versionRange, versionDependentFieldName);
+        argTypes = type;
+
+    }
+
+    public void addMapping(VersionRange versionRange, String versionDependentMethodName) {
+
+        this.mappings.put(versionRange, versionDependentMethodName);
 
     }
 
     /**
-     * @param reflection The reflection object to use to get the field
-     * @return Returns an instance of these mappings FieldType If the reflection
-     * object is not an instance of {@link #reflectionType} it will return
-     * null.
+     * @param reflection The reflection object to use to run the method
+     * @param args       The arguments of the method
+     * @return Returns an instance of this mappings ReturnType if the method has a
+     * return. If the reflection object is not an instance of
+     * {@link #reflectionType} it will return null.
      * @throws MappingsException A {@link MappingsException} is thrown when this
      *                           mapping cannot find a matching mapping for the
      *                           current version
      */
-    public FieldType getField(ReflectionType reflection) throws MappingsException {
+    public ReturnType runMethod(ReflectionType reflection, Object... args) throws MappingsException {
 
-        for (VersionRange range : mappings.keySet()) {
+        try {
+            String methodName = get();
 
-            if (range.isWithinRange(ReflectionApi.version)) {
-
-                try {
-                    return (FieldType) reflection.getFieldFromNmsObject(mappings.get(range));
-                } catch (NoSuchFieldException e) {
-                    throw (new MappingsException(this, "Failed to get field", e));
-                }
-
+            try {
+                return (ReturnType) reflection.invokeMethodForNmsObject(methodName, argTypes, args);
+            } catch (NoSuchMethodException e) {
+                throw (new MappingsException(this, "Method " + methodName + " does not exist in " + reflectionType.getSimpleName()));
             }
-
+        } catch (MappingsException e) {
+            throw (new MappingsException(this, "Failed to run method: No mapping for current version found"));
         }
-
-        throw (new MappingsException(this, "Failed to get field: No mapping for current version found"));
 
     }
 
     @Override
     public String toString() {
 
-        return "FieldMapping{name: " + name + "}";
+        return "ArguementMethodMapping{name: " + name + "}";
 
     }
 
@@ -89,7 +101,7 @@ public class FieldMapping<FieldType, ReflectionType extends NMSObjectReflection>
     @Override
     public boolean testMapping() {
         try {
-            String fieldName = get();
+            String methodName = get();
             Class<?> nmsClass;
             try {
                 nmsClass = (Class<?>) reflectionType.getField("staticClass").get(null);
@@ -97,17 +109,16 @@ public class FieldMapping<FieldType, ReflectionType extends NMSObjectReflection>
                 throw new NMSObjectReflection.ImplementationException(reflectionType, "The reflection type " + reflectionType.getName() + " does not have a staticClass field");
             }
             try {
-                nmsClass.getField(fieldName);
-            } catch (NoSuchFieldException e) {
-                nmsClass.getDeclaredField(fieldName);
+                nmsClass.getMethod(methodName, argTypes);
+            } catch (NoSuchMethodException e) {
+                nmsClass.getDeclaredMethod(methodName, argTypes);
             }
-
             return true;
 
-        } catch (MappingsException exc) {
+        } catch (MappingsException e) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "Mapping " + name + " is out of range. Tentative Pass.");
             return true;
-        } catch (NoSuchFieldException | NMSObjectReflection.ImplementationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
