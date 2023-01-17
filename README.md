@@ -6,8 +6,11 @@ ReflectionAPI is powerful toolset for working with cross-version compatible NMS.
 - [Generic Object Wrapper](#generic-object-wrapper)
 - [Specialized Wrappers](#specialized-wrappers)
 - [Note on Packets](#special-note-on-packets)
+
 [Mappings](#mappings)
+
 [Version Detection](#version-detection)
+
 [Extras](#extras)
 
 # Object Wrappers
