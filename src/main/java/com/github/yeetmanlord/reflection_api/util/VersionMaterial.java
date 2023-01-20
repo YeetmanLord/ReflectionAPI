@@ -226,6 +226,8 @@ public class VersionMaterial {
 
     public static  final VersionMaterial BED_BLOCK = new VersionMaterial("bed_block", "white_bed", (byte) 0);
 
+    public static final VersionMaterial EXPERIENCE_BOTTLE = new VersionMaterial("exp_bottle", "experience_bottle", (byte) 0);
+
     public static VersionMaterial getWool(DyeColor dyeColor) {
         CrossVersionDyeColor color = CrossVersionDyeColor.fromBukkit(dyeColor);
         switch (color) {
