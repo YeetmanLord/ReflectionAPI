@@ -355,7 +355,9 @@ public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
 
     public Set<String> getKeys() {
         try {
-            if (ReflectionApi.version.isOlder(ReflectionApi.v1_18)) {
+            if (ReflectionApi.version.isOlder(ReflectionApi.v1_9)) {
+                return (Set<String>) this.invokeMethodForNmsObject("c");
+            } else if (ReflectionApi.version.isOlder(ReflectionApi.v1_18)) {
                 return (Set<String>) this.invokeMethodForNmsObject("getKeys");
             } else {
                 return (Set<String>) this.invokeMethodForNmsObject("d");
@@ -373,8 +375,7 @@ public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
             } else {
                 return new NMSNBTBase(this.invokeMethodForNmsObject("c", new Class<?>[]{String.class}, new Object[]{key}));
             }
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
             return null;
         }
