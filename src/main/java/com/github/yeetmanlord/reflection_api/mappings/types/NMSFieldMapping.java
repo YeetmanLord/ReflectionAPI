@@ -69,7 +69,7 @@ public class NMSFieldMapping<Type> implements IMapping<String> {
     /**
      * @param nmsObject The nms object to use to get the field
      * @return Returns an instance of this mappings FieldType If the reflection
-     * object is not an instance of {@link #reflectionType} it will return
+     * object is not an instance of {@link #nmsClass} it will return
      * null.
      * @throws MappingsException A {@link MappingsException} is thrown when this
      *                           mapping cannot find a matching mapping for the

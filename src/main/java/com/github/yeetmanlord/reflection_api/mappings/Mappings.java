@@ -36,17 +36,17 @@ import java.util.Map;
  * {@link ClassNameMapping#getNMSClassMapping()}<br>
  * To get a field name use
  * {@link FieldMapping#getField(com.github.yeetmanlord.reflection_api.NMSObjectReflection)}<br>
- * To invoke a method without arguements use
+ * To invoke a method without arguments use
  * {@link ArgumentlessMethodMapping#runMethod(com.github.yeetmanlord.reflection_api.NMSObjectReflection)}<br>
- * To invoke a method with arguements use
+ * To invoke a method with arguments use
  * {@link ArgumentMethodMapping#runMethod(com.github.yeetmanlord.reflection_api.NMSObjectReflection, Object...)}
  */
 public class Mappings {
 
-    public static final List<IMapping> mappings = Lists.newArrayList();
+    public static final List<IMapping<?>> mappings = Lists.newArrayList();
 
     /**
-     * The package mapping for the `net.minecraft.server.<span>&lt</span>version&gt` package. In versions 1.17+, it is `net.minecraft`
+     * The package mapping for the `net.minecraft.server.&lt;version&gt;` package. In versions 1.17+, it is `net.minecraft`
      */
     public static final PackageMapping BASE_PACKAGE = new PackageMapping("NMS Base Package (net.minecraft.server)", Maps.newHashMap());
 

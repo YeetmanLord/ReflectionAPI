@@ -31,10 +31,9 @@ public class NMSScoreboardTeamPacketReflection extends NMSPacketReflection {
      * To add players or fake players to a team
      *
      * @param team        The team object to join
-     * @param playerNames The players by name to add to the team
+     * @param playerName The players by name to add to the team
      * @param action      Join or leave the team
      */
-    @SuppressWarnings("rawtypes")
     public NMSScoreboardTeamPacketReflection(NMSScoreboardTeamReflection team, String playerName, TeamPacketAction action) {
 
         super(init(team, playerName, action));

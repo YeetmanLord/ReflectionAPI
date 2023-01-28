@@ -43,7 +43,6 @@ public class NMSObjectReflection {
      *                     method
      * @param methodName   The name of the method to get an NMS equivalent of a
      *                     Bukkit object
-     * @throws NoSuchMethodException throws when given method doesn't exist
      */
     public NMSObjectReflection(Object bukkitObject, String methodName) {
 

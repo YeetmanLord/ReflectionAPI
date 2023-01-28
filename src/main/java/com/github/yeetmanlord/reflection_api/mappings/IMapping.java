@@ -36,8 +36,8 @@ public interface IMapping<Type> {
      * mappings you can do so by adding them in {@link JavaPlugin#onEnable()}.
      * Or in a method called inside it.
      *
-     * @param range The key to specify in which versions the mapping will be used
-     * @param value What the name of the field/method/class is
+     * @param mappings A map of {@link VersionRange} as the key to specify in which versions the mapping will be used and a
+     *                 {@link String} for what the name of the field/method/class is
      */
     default void addAllMappings(Map<VersionRange, Type> mappings) {
         mappings.forEach(this::addMapping);
