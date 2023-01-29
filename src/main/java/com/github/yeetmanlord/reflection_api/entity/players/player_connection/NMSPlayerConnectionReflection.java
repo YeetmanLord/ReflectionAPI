@@ -16,6 +16,9 @@ import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.network.NMSNetworkManagerReflection;
 import com.github.yeetmanlord.reflection_api.server.NMSServerReflection;
 
+/**
+ * Wraps the PlayerConnection class
+ */
 public class NMSPlayerConnectionReflection extends NMSObjectReflection {
 
 	private Object nmsPlayerConnection;

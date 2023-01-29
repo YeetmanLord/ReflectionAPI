@@ -29,7 +29,9 @@ public class NMSChatSerializerReflection
 	}
 	
 	/**
-	 * This is easier to use as you just have to input text with color codes, and it will automatically be translated into a usable form
+	 * This is easier to use as you just have to input text with color codes,
+	 * and it will automatically be translated into a usable form
+	 * @param rawText The text to be translated
 	 * @return Returns an IChatBaseComponent
 	 */
 	public static Object createChatComponentFromText(String rawText)

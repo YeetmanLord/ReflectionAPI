@@ -7,6 +7,9 @@ import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import org.bukkit.Bukkit;
 
+/**
+ * Wraps the DataWatcher class
+ */
 public class NMSDataWatcherReflection extends NMSObjectReflection {
 
     public NMSDataWatcherReflection(NMSEntityReflection entity) {

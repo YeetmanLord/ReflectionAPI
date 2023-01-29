@@ -13,6 +13,10 @@ import com.github.yeetmanlord.reflection_api.nbt.NMSNBTTagCompoundReflection;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Wraps the ItemStack class. Also provides a few helper methods that would create an NMS ItemStack
+ * using the {@link Material} and amount. Also can be used to modify the NBT data of an ItemStack.
+ */
 public class NMSItemStackReflection extends NMSObjectReflection {
 
     public NMSItemStackReflection(Object nmsObject) {

@@ -11,6 +11,9 @@ import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.google.common.collect.ImmutableMap;
 
+/**
+ * Wraps the Entity class
+ */
 public class NMSEntityReflection extends NMSObjectReflection {
 
     private NMSDataWatcherReflection dataWatcher;

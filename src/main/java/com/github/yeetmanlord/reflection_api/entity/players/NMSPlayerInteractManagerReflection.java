@@ -6,6 +6,9 @@ import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.world.NMSWorldServerReflection;
 
+/**
+ * Wraps the PlayerInteractManager class
+ */
 public class NMSPlayerInteractManagerReflection extends NMSObjectReflection {
 
 	/**

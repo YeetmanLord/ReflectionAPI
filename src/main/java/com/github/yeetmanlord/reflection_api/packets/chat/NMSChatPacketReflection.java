@@ -9,6 +9,10 @@ import com.github.yeetmanlord.reflection_api.exceptions.MappingsException;
 import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import com.github.yeetmanlord.reflection_api.packets.NMSPacketReflection;
 
+/**
+ * Chat packet wrapper. Can be used to send chat messages and action bar messages.
+ * As of 1.19, this uses the SystemChat packet instead of the Chat packet.
+ */
 public class NMSChatPacketReflection extends NMSPacketReflection {
 
     private static HashMap<Class<?>, Integer> classes = new HashMap<>();

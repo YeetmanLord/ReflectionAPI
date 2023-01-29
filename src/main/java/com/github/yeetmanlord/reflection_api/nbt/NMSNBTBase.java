@@ -3,6 +3,9 @@ package com.github.yeetmanlord.reflection_api.nbt;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.ReflectionApi;
 
+/**
+ * Wraps the NBTBase class
+ */
 public class NMSNBTBase extends NMSObjectReflection {
 
     public NMSNBTBase(Object nmsObject) {

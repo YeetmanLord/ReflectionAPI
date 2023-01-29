@@ -6,6 +6,11 @@ import java.lang.reflect.Modifier;
 import com.github.yeetmanlord.reflection_api.NMSObjectReflection;
 import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 
+/**
+ * A special wrapper that wraps a field in the underlying NMS object.
+ *
+ * @param <Type> The type of the field.
+ */
 public class ReflectedField<Type> {
 
     private final NMSObjectReflection holder;
@@ -35,7 +40,7 @@ public class ReflectedField<Type> {
 
     public ReflectedField(Field fieldReflection, boolean isPrivate, boolean nmsObject, NMSObjectReflection holder, String getterName, String setterName) {
 
-        this(fieldReflection, isPrivate, false, holder);
+        this(fieldReflection, isPrivate, nmsObject, holder);
         this.getter = getterName;
         this.setter = setterName;
 
@@ -64,6 +69,12 @@ public class ReflectedField<Type> {
 
     }
 
+    /**
+     * Sets the value of the field.
+     *
+     * @param value The value to set the field to.
+     * @throws FieldReflectionExcpetion If the field is final or if the field failed to be set.
+     */
     public void set(Type value) throws FieldReflectionExcpetion {
 
         if (isFinal) {
@@ -116,11 +127,17 @@ public class ReflectedField<Type> {
             }
 
         } catch (Exception exc) {
-            exc.printStackTrace();
+            throw new FieldReflectionExcpetion(this, "Could not set field");
         }
 
     }
 
+    /**
+     * Gets the value of the field.
+     *
+     * @return The value of the field.
+     * @throws FieldReflectionExcpetion If the field failed to be gotten.
+     */
     public Type get() throws FieldReflectionExcpetion {
 
         if (getter != null && !getter.isEmpty()) {

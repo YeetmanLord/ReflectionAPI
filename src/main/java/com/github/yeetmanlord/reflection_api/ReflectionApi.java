@@ -36,12 +36,29 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.NameTagVisibility;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+/**
+ * ReflectionAPI main class. ReflectionAPI is a library that allows you to access NMS classes and methods without having to
+ * worry about version differences. It is designed to be as easy to use as possible, and to be as flexible as possible.
+ * It supports custom mappings, to allow you to access fields, run methods, get classes, etc. independently of the version.
+ * <p>
+ * It provides a suit of utilities to make things easier for you, such as a {@link VersionMaterial} class, which is similar to
+ * XMaterial, but isn't as cool. It also provides a {@link ParticleUtility} class, which allows you to send particles to players
+ * without having to worry about version differences. There a bunch of other utility classes. However, the bulk of classes are wrappers
+ * for NMS classes. These wrappers allow you to access NMS classes without having to do any reflection. They also allow you to access
+ * NMS methods without having to worry about version differences. There is a small amount of built-in mappings, but you can add your own.
+ * <p>
+ * This class is the main class of ReflectionAPI. It is used to get the current version of Minecraft, as well as perform utility functions.
+ * <p>
+ * If it seems like there's a bunch of random things in this api, it's because there is. I develop this API as I develop my plugins, so I
+ * add things as I need them. I try to keep it organized, but it's kind of random. Packets are useful though.
+ */
 public class ReflectionApi {
 
     /**
@@ -154,7 +171,15 @@ public class ReflectionApi {
 
     }
 
-    public static boolean runReflectionTests(Player executer) {
+    /**
+     * Runs a series of tests to ensure that ReflectionAPI is working properly. These are by no means exhaustive, but they should
+     * give you a good idea of whether ReflectionAPI is working properly. Most classes catch errors and print stack traces, so you
+     * will also need to check console logs. This will test any registered mappings as well.
+     *
+     * @param executor The player to run the tests on
+     * @return Whether the tests passed
+     */
+    public static boolean runReflectionTests(Player executor) {
         try {
             // Chat packets
             NMSChatPacketReflection packet = new NMSChatPacketReflection(ChatColor.RED + "Hello World!", NMSChatPacketReflection.EnumChatPosition.CHAT);
@@ -162,11 +187,11 @@ public class ReflectionApi {
             // Entity packets
             NMSEntityDestroyPacketReflection entityPacket = new NMSEntityDestroyPacketReflection(1);
             NMSEntityEquipmentPacketReflection equipmentPacketReflection = new NMSEntityEquipmentPacketReflection(1, EnumEquipmentSlot.HEAD, new ItemStack(Material.AIR));
-            NMSNamedEntitySpawnPacketReflection spawnPacket = new NMSNamedEntitySpawnPacketReflection(new NMSPlayerReflection(executer));
+            NMSNamedEntitySpawnPacketReflection spawnPacket = new NMSNamedEntitySpawnPacketReflection(new NMSPlayerReflection(executor));
             NMSPacketPlayOutRelEntityMove movePacket = new NMSPacketPlayOutRelEntityMove(1, 0L, 0L, 0L, (byte) 127, (byte) 0, false);
 
             // Player connection
-            NMSPlayerConnectionReflection connection = new NMSPlayerConnectionReflection(new NMSPlayerReflection(executer));
+            NMSPlayerConnectionReflection connection = new NMSPlayerConnectionReflection(new NMSPlayerReflection(executor));
 
             // Network manager
             NMSNetworkManagerReflection networkManager = new NMSNetworkManagerReflection(NMSNetworkManagerReflection.EnumNetworkDirection.SERVERBOUND);
@@ -175,8 +200,8 @@ public class ReflectionApi {
             connection.sendPacket(packet);
 
             // Player tests
-            NMSPlayerReflection player = new NMSPlayerReflection(executer);
-            player.setLocation(executer.getLocation().add(0, 1, 0));
+            NMSPlayerReflection player = new NMSPlayerReflection(executor);
+            player.setLocation(executor.getLocation().add(0, 1, 0));
             NMSAxisAlignedBBReflection b = player.getBoundingBox();
             b = new NMSAxisAlignedBBReflection(0, 0, 0, 1, 1, 1);
 
@@ -185,6 +210,14 @@ public class ReflectionApi {
 
             /// Teams
             NMSScoreboardTeamReflection team = new NMSScoreboardTeamReflection(Bukkit.getScoreboardManager().getMainScoreboard(), "test");
+            team.setPrefix("test");
+            team.setSuffix("test");
+            team.setDisplayName("test");
+            team.setAllowFriendlyFire(true);
+            team.setCanSeeFriendlyInvisibles(true);
+            team.setNametagVisibility(NameTagVisibility.ALWAYS);
+            team.setCanSeeFriendlyInvisibles(true);
+            team.setChatFormat(ChatColor.AQUA);
             NMSScoreboardTeamPacketReflection removePacket = new NMSScoreboardTeamPacketReflection(team, NMSScoreboardTeamPacketReflection.TeamPacketAction.REMOVE);
             NMSScoreboardTeamPacketReflection addPacket = new NMSScoreboardTeamPacketReflection(team, "123", NMSScoreboardTeamPacketReflection.TeamPacketAction.ADD_PLAYERS);
 
@@ -203,7 +236,7 @@ public class ReflectionApi {
             NMSNBTTagCompoundReflection tag = new NMSNBTTagCompoundReflection();
             tag.setString("test", "test");
             item.setTag(tag);
-            executer.getInventory().addItem(item.asBukkit());
+            executor.getInventory().addItem(item.asBukkit());
 
             // Interact manager
             if (ReflectionApi.version.isOlder(v1_17)) {
@@ -211,14 +244,14 @@ public class ReflectionApi {
             }
 
             // Block position
-            NMSBlockPositionReflection blockPosition = new NMSBlockPositionReflection(executer.getLocation());
+            NMSBlockPositionReflection blockPosition = new NMSBlockPositionReflection(executor.getLocation());
 
             // World & server
-            NMSWorldServerReflection world = new NMSWorldServerReflection(executer.getWorld());
+            NMSWorldServerReflection world = new NMSWorldServerReflection(executor.getWorld());
             NMSServerReflection server = new NMSServerReflection(Bukkit.getServer());
 
             // Particle
-            ParticleUtility.spawnParticle(executer.getLocation(), ParticleUtility.ParticleTypes.CRIT_MAGIC, 1, 1, 1, 1, 1, 30);
+            ParticleUtility.spawnParticle(executor.getLocation(), ParticleUtility.ParticleTypes.CRIT_MAGIC, 1, 1, 1, 1, 1, 30);
 
             // Vec 3D
             NMSVec3DReflection vec = new NMSVec3DReflection(0, 0, 0);
@@ -236,7 +269,7 @@ public class ReflectionApi {
             }
 
             // Mappings tests
-            for (IMapping mappings : Mappings.mappings) {
+            for (IMapping<?> mappings : Mappings.mappings) {
                 boolean passed = mappings.testMapping();
                 if (passed) {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Mapping `" + mappings.getName() + "` tests passed");
@@ -255,6 +288,11 @@ public class ReflectionApi {
 
     public static Version version;
 
+    /**
+     * Initializes the Reflection API. This should be called in the onEnable method of your plugin.
+     * This will also disable the plugin if the version is not supported. This also loads the mappings and server version.
+     * @param plugin The plugin to disable if the version is not supported.
+     */
     public static void init(JavaPlugin plugin) {
 
         version = getVersion();

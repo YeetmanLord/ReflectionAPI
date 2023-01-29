@@ -14,12 +14,29 @@ import com.github.yeetmanlord.reflection_api.ReflectionApi;
 import com.github.yeetmanlord.reflection_api.exceptions.FieldReflectionExcpetion;
 import com.google.common.collect.ImmutableMap;
 
+/**
+ * This class is a wrapper for the NMS BlockPosition class.
+ *
+ * @author YeetManLord
+ * @version 1.0
+ * @since 1.0
+ *
+ */
 public class NMSBlockPositionReflection extends NMSObjectReflection {
 
+	/**
+	 * The underlying x coordinate of the block position.
+	 */
 	public ReflectedField<Integer> x;
 
+	/**
+	 * The underlying y coordinate of the block position.
+	 */
 	public ReflectedField<Integer> y;
 
+	/**
+	 * The underlying z coordinate of the block position.
+	 */
 	public ReflectedField<Integer> z;
 
 	public NMSBlockPositionReflection(double x, double y, double z) {
@@ -77,6 +94,13 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 
 	}
 
+	/**
+	 * Adds the given coordinates to the block position.
+	 * @param x The x coordinate to add.
+	 * @param y The y coordinate to add.
+	 * @param z The z coordinate to add.
+	 * @return The new block position.
+	 */
 	public NMSBlockPositionReflection add(double x, double y, double z) {
 
 		try {
@@ -89,6 +113,11 @@ public class NMSBlockPositionReflection extends NMSObjectReflection {
 
 	}
 
+	/**
+	 * Adds the given coordinates to the block position.
+	 * @param blockPosition The block position to add.
+	 * @return The new block position.
+	 */
 	public NMSBlockPositionReflection add(NMSBlockPositionReflection blockPosition) {
 
 		try {

@@ -16,6 +16,11 @@ import com.github.yeetmanlord.reflection_api.packets.entity.NMSNamedEntitySpawnP
 import com.github.yeetmanlord.reflection_api.packets.player.NMSPlayerInfoPacketReflection;
 import com.github.yeetmanlord.reflection_api.packets.player.NMSScoreboardTeamPacketReflection;
 
+/**
+ * This class is for reflecting NMS packets. It is a wrapper for the
+ * Packet class. It is used for sending packets to players in
+ * {@link com.github.yeetmanlord.reflection_api.entity.players.player_connection.NMSPlayerConnectionReflection}
+ */
 public class NMSPacketReflection extends NMSObjectReflection {
 
     private Object nmsPacket;
@@ -52,8 +57,7 @@ public class NMSPacketReflection extends NMSObjectReflection {
     /**
      * For reflecting NMS packets
      *
-     * @param mapping The package mapping of the packet (Most of the time it's {@link com.github.yeetmanlord.reflection_api.mappings.Mappings#PACKET_PLAY_PACKAGE_MAPPING})
-     *
+     * @param mapping    The package mapping of the packet (Most of the time it's {@link com.github.yeetmanlord.reflection_api.mappings.Mappings#PACKET_PLAY_PACKAGE_MAPPING})
      * @param packetName is the name of the packet you are reflecting although
      *                   special packets have separate classes These classes are
      *                   {@link NMSScoreboardTeamPacketReflection},

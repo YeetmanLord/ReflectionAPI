@@ -7,6 +7,10 @@ import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import java.sql.Ref;
 import java.util.Set;
 
+/**
+ * Wraps the NBTTagCompound class, which is used to store NBT data.
+ * Has a bunch of accompanying methods to set and different types of data.
+ */
 public class NMSNBTTagCompoundReflection extends NMSObjectReflection {
 
     public NMSNBTTagCompoundReflection(Object nmsObject) {

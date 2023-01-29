@@ -6,6 +6,11 @@ import com.github.yeetmanlord.reflection_api.mappings.Mappings;
 import org.bukkit.Location;
 
 
+/**
+ * This class is a wrapper for the NMS AxisAlignedBB class. It is used to create a bounding box for
+ * entities, or just as a general bounding box, since it also has methods for checking if a point is
+ * within the bounding box, or if an entity is within the bounding box.
+ */
 public class NMSAxisAlignedBBReflection extends NMSObjectReflection {
 
     private double x1;
@@ -69,14 +74,31 @@ public class NMSAxisAlignedBBReflection extends NMSObjectReflection {
                 '}';
     }
 
+    /**
+     * Checks if a point is within the bounding box.
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @return True if the point is within the bounding box, false otherwise.
+     */
     public boolean isWithinBoundingBox(double x, double y, double z) {
         return x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2 && z >= this.z1 && z <= this.z2;
     }
 
+    /**
+     * Checks if an entity is within the bounding box.
+     * @param boundingBox The bounding box to check.
+     * @return True if the entity is within the bounding box, false otherwise.
+     */
     public boolean doesCollide(NMSAxisAlignedBBReflection boundingBox) {
-        return this.isWithinBoundingBox(boundingBox.x1, boundingBox.y1, boundingBox.z1) || this.isWithinBoundingBox(boundingBox.x2, boundingBox.y2, boundingBox.z2);
+        return this.x1 <= boundingBox.x2 && this.x2 >= boundingBox.x1 && this.y1 <= boundingBox.y2 && this.y2 >= boundingBox.y1 && this.z1 <= boundingBox.z2 && this.z2 >= boundingBox.z1;
     }
 
+    /**
+     * Checks if a location is within the bounding box.
+     * @param location The location to check.
+     * @return True if the location is within the bounding box, false otherwise.
+     */
     public boolean isWithinBoundingBox(Location location) {
         return this.isWithinBoundingBox(location.getX(), location.getY(), location.getZ());
     }

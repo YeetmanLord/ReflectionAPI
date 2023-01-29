@@ -15,6 +15,9 @@ import com.github.yeetmanlord.reflection_api.world.NMSWorldServerReflection;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.authlib.GameProfile;
 
+/**
+ * Wraps the EntityPlayer class
+ */
 public class NMSPlayerReflection extends NMSEntityReflection {
 
     private Object nmsPlayer;
