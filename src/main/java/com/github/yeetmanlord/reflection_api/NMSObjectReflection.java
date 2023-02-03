@@ -368,4 +368,28 @@ public class NMSObjectReflection {
 
     }
 
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof NMSObjectReflection)) {
+            return false;
+        }
+        NMSObjectReflection other = (NMSObjectReflection) obj;
+        if (this.nmsObject == null || other.nmsObject == null) {
+            return false;
+        }
+        if (this.nmsObject.getClass() != other.nmsObject.getClass()) {
+            return false;
+        }
+        return this.nmsObject.equals(other.nmsObject);
+    }
+
+    public int hashCode() {
+        return this.nmsObject.hashCode();
+    }
+
 }
