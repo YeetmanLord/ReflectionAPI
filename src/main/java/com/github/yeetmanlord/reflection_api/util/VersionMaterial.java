@@ -228,6 +228,58 @@ public class VersionMaterial {
 
     public static final VersionMaterial EXPERIENCE_BOTTLE = new VersionMaterial("exp_bottle", "experience_bottle", (byte) 0);
 
+
+    public static final VersionMaterial WHITE_CONCRETE = new VersionMaterial("concrete", "white_concrete", (byte) 0);
+    public static final VersionMaterial ORANGE_CONCRETE = new VersionMaterial("concrete", "orange_concrete", (byte) 1);
+    public static final VersionMaterial MAGENTA_CONCRETE = new VersionMaterial("concrete", "magenta_concrete", (byte) 2);
+    public static final VersionMaterial LIGHT_BLUE_CONCRETE = new VersionMaterial("concrete", "light_blue_concrete", (byte) 3);
+    public static final VersionMaterial YELLOW_CONCRETE = new VersionMaterial("concrete", "yellow_concrete", (byte) 4);
+    public static final VersionMaterial LIME_CONCRETE = new VersionMaterial("concrete", "lime_concrete", (byte) 5);
+    public static final VersionMaterial PINK_CONCRETE = new VersionMaterial("concrete", "pink_concrete", (byte) 6);
+    public static final VersionMaterial GRAY_CONCRETE = new VersionMaterial("concrete", "gray_concrete", (byte) 7);
+    public static final VersionMaterial LIGHT_GRAY_CONCRETE = new VersionMaterial("concrete", "light_gray_concrete", (byte) 8);
+    public static final VersionMaterial CYAN_CONCRETE = new VersionMaterial("concrete", "cyan_concrete", (byte) 9);
+    public static final VersionMaterial PURPLE_CONCRETE = new VersionMaterial("concrete", "purple_concrete", (byte) 10);
+    public static final VersionMaterial BLUE_CONCRETE = new VersionMaterial("concrete", "blue_concrete", (byte) 11);
+    public static final VersionMaterial BROWN_CONCRETE = new VersionMaterial("concrete", "brown_concrete", (byte) 12);
+    public static final VersionMaterial GREEN_CONCRETE = new VersionMaterial("concrete", "green_concrete", (byte) 13);
+    public static final VersionMaterial RED_CONCRETE = new VersionMaterial("concrete", "red_concrete", (byte) 14);
+    public static final VersionMaterial BLACK_CONCRETE = new VersionMaterial("concrete", "black_concrete", (byte) 15);
+
+    public static final VersionMaterial WHITE_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "white_concrete_powder", (byte) 0);
+    public static final VersionMaterial ORANGE_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "orange_concrete_powder", (byte) 1);
+    public static final VersionMaterial MAGENTA_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "magenta_concrete_powder", (byte) 2);
+    public static final VersionMaterial LIGHT_BLUE_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "light_blue_concrete_powder", (byte) 3);
+    public static final VersionMaterial YELLOW_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "yellow_concrete_powder", (byte) 4);
+    public static final VersionMaterial LIME_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "lime_concrete_powder", (byte) 5);
+    public static final VersionMaterial PINK_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "pink_concrete_powder", (byte) 6);
+    public static final VersionMaterial GRAY_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "gray_concrete_powder", (byte) 7);
+    public static final VersionMaterial LIGHT_GRAY_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "light_gray_concrete_powder", (byte) 8);
+    public static final VersionMaterial CYAN_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "cyan_concrete_powder", (byte) 9);
+    public static final VersionMaterial PURPLE_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "purple_concrete_powder", (byte) 10);
+    public static final VersionMaterial BLUE_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "blue_concrete_powder", (byte) 11);
+    public static final VersionMaterial BROWN_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "brown_concrete_powder", (byte) 12);
+    public static final VersionMaterial GREEN_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "green_concrete_powder", (byte) 13);
+    public static final VersionMaterial RED_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "red_concrete_powder", (byte) 14);
+    public static final VersionMaterial BLACK_CONCRETE_POWDER = new VersionMaterial("concrete_powder", "black_concrete_powder", (byte) 15);
+
+    public static final VersionMaterial WHITE_CARPET = new VersionMaterial("carpet", "white_carpet", (byte) 0);
+    public static final VersionMaterial ORANGE_CARPET = new VersionMaterial("carpet", "orange_carpet", (byte) 1);
+    public static final VersionMaterial MAGENTA_CARPET = new VersionMaterial("carpet", "magenta_carpet", (byte) 2);
+    public static final VersionMaterial LIGHT_BLUE_CARPET = new VersionMaterial("carpet", "light_blue_carpet", (byte) 3);
+    public static final VersionMaterial YELLOW_CARPET = new VersionMaterial("carpet", "yellow_carpet", (byte) 4);
+    public static final VersionMaterial LIME_CARPET = new VersionMaterial("carpet", "lime_carpet", (byte) 5);
+    public static final VersionMaterial PINK_CARPET = new VersionMaterial("carpet", "pink_carpet", (byte) 6);
+    public static final VersionMaterial GRAY_CARPET = new VersionMaterial("carpet", "gray_carpet", (byte) 7);
+    public static final VersionMaterial LIGHT_GRAY_CARPET = new VersionMaterial("carpet", "light_gray_carpet", (byte) 8);
+    public static final VersionMaterial CYAN_CARPET = new VersionMaterial("carpet", "cyan_carpet", (byte) 9);
+    public static final VersionMaterial PURPLE_CARPET = new VersionMaterial("carpet", "purple_carpet", (byte) 10);
+    public static final VersionMaterial BLUE_CARPET = new VersionMaterial("carpet", "blue_carpet", (byte) 11);
+    public static final VersionMaterial BROWN_CARPET = new VersionMaterial("carpet", "brown_carpet", (byte) 12);
+    public static final VersionMaterial GREEN_CARPET = new VersionMaterial("carpet", "green_carpet", (byte) 13);
+    public static final VersionMaterial RED_CARPET = new VersionMaterial("carpet", "red_carpet", (byte) 14);
+    public static final VersionMaterial BLACK_CARPET = new VersionMaterial("carpet", "black_carpet", (byte) 15);
+
     public static VersionMaterial getWool(DyeColor dyeColor) {
         CrossVersionDyeColor color = CrossVersionDyeColor.fromBukkit(dyeColor);
         switch (color) {
