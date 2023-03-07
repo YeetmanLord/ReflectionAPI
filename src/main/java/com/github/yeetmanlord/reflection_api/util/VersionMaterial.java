@@ -198,6 +198,24 @@ public class VersionMaterial {
     public static final VersionMaterial BLACK_TERRACOTTA = new VersionMaterial("stained_clay", "black_terracotta", (byte) 15);
     public static final VersionMaterial TERRACOTTA = new VersionMaterial("hard_clay", "terracotta", (byte) 0);
 
+    public static final VersionMaterial WHITE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "white_glazed_terracotta", (byte) 0);
+    public static final VersionMaterial ORANGE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "orange_glazed_terracotta", (byte) 1);
+    public static final VersionMaterial MAGENTA_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "magenta_glazed_terracotta", (byte) 2);
+    public static final VersionMaterial LIGHT_BLUE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "light_blue_glazed_terracotta", (byte) 3);
+    public static final VersionMaterial YELLOW_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "yellow_glazed_terracotta", (byte) 4);
+    public static final VersionMaterial LIME_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "lime_glazed_terracotta", (byte) 5);
+    public static final VersionMaterial PINK_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "pink_glazed_terracotta", (byte) 6);
+    public static final VersionMaterial GRAY_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "gray_glazed_terracotta", (byte) 7);
+    public static final VersionMaterial LIGHT_GRAY_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "light_gray_glazed_terracotta", (byte) 8);
+    public static final VersionMaterial CYAN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "cyan_glazed_terracotta", (byte) 9);
+    public static final VersionMaterial PURPLE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "purple_glazed_terracotta", (byte) 10);
+    public static final VersionMaterial BLUE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "blue_glazed_terracotta", (byte) 11);
+    public static final VersionMaterial BROWN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "brown_glazed_terracotta", (byte) 12);
+    public static final VersionMaterial GREEN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "green_glazed_terracotta", (byte) 13);\
+    public static final VersionMaterial RED_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "red_glazed_terracotta", (byte) 14);
+    public static final VersionMaterial BLACK_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "black_glazed_terracotta", (byte) 15);
+    
+
     public static final VersionMaterial CLOCK = new VersionMaterial("watch", "clock", (byte) 0);
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
 
