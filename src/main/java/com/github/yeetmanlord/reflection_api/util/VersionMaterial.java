@@ -211,10 +211,10 @@ public class VersionMaterial {
     public static final VersionMaterial PURPLE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "purple_glazed_terracotta", (byte) 10);
     public static final VersionMaterial BLUE_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "blue_glazed_terracotta", (byte) 11);
     public static final VersionMaterial BROWN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "brown_glazed_terracotta", (byte) 12);
-    public static final VersionMaterial GREEN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "green_glazed_terracotta", (byte) 13);\
+    public static final VersionMaterial GREEN_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "green_glazed_terracotta", (byte) 13);
     public static final VersionMaterial RED_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "red_glazed_terracotta", (byte) 14);
     public static final VersionMaterial BLACK_GLAZED_TERRACOTTA = new VersionMaterial("stained_clay", "black_glazed_terracotta", (byte) 15);
-    
+
 
     public static final VersionMaterial CLOCK = new VersionMaterial("watch", "clock", (byte) 0);
     public static final VersionMaterial ENCHANTING_TABLE = new VersionMaterial("enchantment_table", "enchanting_table", (byte) 0);
